@@ -1,0 +1,33 @@
+
+
+body {
+    font-size: max(min(1.5vh,3vw),25px);
+    font-family: 'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    margin:0;
+    background-color: #ddc5b1;
+}
+
+.yellow { background-color: #f5f57a; color: #8d8b00;}
+.orange { background-color: #ffad67; color: #8a5e00; }
+.red { background-color: #ff8585; color: #910000 }
+
+
+table {
+    width: 99.9%;
+    border-collapse: collapse;
+}
+
+.right {
+    float: right;
+}
+
+button, select {
+    font-size: 0.9em;
+    font-weight: bolder;
+    vertical-align: bottom;
+}
+
+input[type=checkbox] {
+    scale: 1.5;
+}
+
