@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+    .float-right {
+        float: right;
+    }
+    dialog {
+        border-radius: 1em;
+    }
+    dialog::backdrop {
+        background-color: #0008;
+    }
+</style>
+</head>
+<body>
+    <button onclick="show_modal()">click me</button>
+
+
+    <!--script src="modal.min.js"></script 
+    https://cdn.jsdelivr.net/npm/vanilla-modal@1.6.5/index.min.js
+
+    NOTE the onclick below is optional, it allows 
+    closing the box by clicking on backdrop.
+-->    
+
+<dialog id="test1" onclick="close_box(event,-1)"> </dialog>
+
+
+<script>
+
+    function close_box(e,value) {
+        console.log('value is',value);
+        let box = e.target;
+        let rect = box.getBoundingClientRect();
+        let isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+            rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+        while (box && box.nodeName != 'DIALOG')
+            box = box.parentElement;
+        if (value >= 0 || !isInDialog)
+            box.close();
+        e.stopPropagation();
+    }
+
+    function show_modal() {
+        // Here we create our dynamic modal
+        let box = document.getElementById('test1')
+        box.innerHTML = `
+            <button onclick="close_box(event,0)" class="float-right">X</button>
+            <h1>This is the title</h1>
+            Now is the time for all good men to come to the aid of their country.
+            <button onclick="close_box(event,1)">OK</button>
+        `;
+        box.showModal();
+
+    }
+
+</script>
+ </body>
+</html>

@@ -17,6 +17,10 @@ table {
     border-collapse: collapse;
 }
 
+th { 
+    text-align: left;
+}
+
 .right {
     float: right;
 }
