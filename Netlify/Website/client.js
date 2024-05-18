@@ -1,9 +1,9 @@
 
-let api = "/.netlify/functions";
+let api = "http://dorothyday.fingerson.com:8055";
 
 // For local testing... just open the index file, oh and you need to disable CORS in chrome also
-if (!location.hostname) 
-    api = 'https://ddhost.netlify.app' + api;
+//if (!location.hostname) 
+//    api = 'https://ddhost.netlify.app' + api;
 
 function getElem(id) {
     return document.getElementById(id);
@@ -34,9 +34,9 @@ function render_table(id,rows,col_names) {
 }
 
 function pingHost() {
-    return axios.get(api + '/ping').then(response => {
+    return axios.get(api + '/server/ping').then(response => {
         let tbody = getElem("mydiv");
-        tbody.innerHTML = response.data.message;
+        tbody.innerHTML = JSON.stringify(response.data, indent=4);
     });
 }
 
