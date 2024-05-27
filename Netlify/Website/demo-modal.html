@@ -14,22 +14,44 @@
 </style>
 </head>
 <body>
-    <button onclick="show_modal()">click me</button>
+    <button onclick="show_modal(1)">click me</button>
 
+    <button onclick="show_modal(2)">click me</button>
 
-    <!--script src="modal.min.js"></script 
-    https://cdn.jsdelivr.net/npm/vanilla-modal@1.6.5/index.min.js
-
-    NOTE the onclick below is optional, it allows 
-    closing the box by clicking on backdrop.
+<!--
+    NOTE the first box is simple,
+    
+    The second allows closing the box by clicking on backdrop.
 -->    
 
-<dialog id="test1" onclick="close_box(event,-1)"> </dialog>
+<dialog id="test1"> 
+    <button onclick="close_box1(event,0)" class="float-right">X</button>
+    <h1>This is the title</h1>
+    This is the simple version of the modal box, and it will NOT
+    close unless you click a button in the box..
+    <button onclick="close_box1(event,1)">OK</button>
+</dialog>
+
+<dialog id="test2" onclick="close_box2(event,-1)"> </dialog>
+
 
 
 <script>
 
-    function close_box(e,value) {
+function close_box1(e,value) {
+        console.log('value is',value);
+        let box = e.target;
+        while (box) {
+            if (box.nodeName == 'DIALOG') {
+                box.close();
+                e.stopPropagation();
+                return;
+            }
+            box = box.parentElement;
+        }
+    }
+
+    function close_box2(e,value) {
         console.log('value is',value);
         let box = e.target;
         let rect = box.getBoundingClientRect();
@@ -42,15 +64,16 @@
         e.stopPropagation();
     }
 
-    function show_modal() {
+    function show_modal(id) {
         // Here we create our dynamic modal
-        let box = document.getElementById('test1')
-        box.innerHTML = `
-            <button onclick="close_box(event,0)" class="float-right">X</button>
+        let box = document.getElementById('test' + id)
+        if (id==2)
+            box.innerHTML = `
+            <button onclick="close_box2(event,0)" class="float-right">X</button>
             <h1>This is the title</h1>
             Now is the time for all good men to come to the aid of their country.
-            <button onclick="close_box(event,1)">OK</button>
-        `;
+            <button onclick="close_box2(event,1)">OK</button>
+            `;
         box.showModal();
 
     }

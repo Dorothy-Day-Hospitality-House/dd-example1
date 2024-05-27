@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+    .float-right {
+        float: right;
+    }
+    dialog {
+        border-radius: 1em;
+    }
+    dialog::backdrop {
+        background-color: #0008;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.3.4/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+</head>
+<body>
+    Sample code for calling api to get data, click this:
+    <button onclick="get_collections()">collections</button>
+    <div id="topdiv" class="ag-theme-quartz" style="height: 45vh">this is the top</div>
+    <div id="bottomdiv" class="ag-theme-quartz" style="height: 45vh">this is the bottom</div>
+
+<script>
+
+//=============================
+// Global data
+let api = 'http://dorothyday.fingerson.com:8055';
+let config = { withCredentials: true, headers: { Authorization: 'Bearer ???'}};
+let cred = { email: 'api2@fingerson.com', password: '????'};
+
+// TODO -- save this in the localStorage for convenience?
+cred.password = prompt('Password for ' + cred.email);
+
+axios.post(api+'/auth/login', cred).then(res => {
+    console.log (res.data.data);
+    config.headers.Authorization = 'Bearer ' + res.data.data.access_token;
+});
+
+async function get_collections() {
+    res = await axios.get(api+'/collections', config);
+    let rowData = res.data.data;
+    // filter and flatten the rows
+    rowData = rowData.filter(r => !r.collection.startsWith('directus_')).map(r => {
+        return { 
+            collection: r.collection,
+            action: r.collection,
+            sql: r.schema.sql
+        }
+    });
+    let columnDefs = [
+        { field: 'collection' },
+        { field: 'action', cellRenderer: v => `<span onclick="get_table('${v.value}')">⤵️</span>` },
+        { field: 'sql' }
+    ];
+    let gridOptions = { rowData, columnDefs };
+    let myGridElement = document.getElementById('topdiv');
+    myGridElement.innerHTML = '';
+    agGrid.createGrid(myGridElement, gridOptions);
+}
+
+async function get_table(tableName) {
+    res = await axios.get(api+'/items/'+tableName, config);
+    let rowData = res.data.data;
+    let colNames = Object.keys(rowData[0]);
+    let columnDefs = colNames.map(field => { return {field}});
+    let gridOptions = { rowData, columnDefs };
+    let myGridElement = document.getElementById('bottomdiv');
+    myGridElement.innerHTML = '';
+    agGrid.createGrid(myGridElement, gridOptions);
+}
+
+</script>
+ </body>
+</html>

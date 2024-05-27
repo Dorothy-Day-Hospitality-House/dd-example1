@@ -1,9 +1,9 @@
 
-let api = "http://dorothyday.fingerson.com:8055";
+let api = 'http://dorothyday.fingerson.com:8055';
+let config = { withCredentials: true, headers: { Authorization: 'Bearer ???'}};
+let cred = { email: 'api2@fingerson.com', password: '????'};
 
-// For local testing... just open the index file, oh and you need to disable CORS in chrome also
-//if (!location.hostname) 
-//    api = 'https://ddhost.netlify.app' + api;
+
 
 function getElem(id) {
     return document.getElementById(id);
@@ -33,47 +33,28 @@ function render_table(id,rows,col_names) {
     return result + '</table>\n';
 }
 
-function pingHost() {
-    return axios.get(api + '/server/ping').then(response => {
-        let tbody = getElem("mydiv");
-        tbody.innerHTML = JSON.stringify(response.data, indent=4);
-    });
-}
 
 async function onButton() {
     let tbody = getElem("mydiv");
     tbody.innerHTML = 'testing';
-    // //let config = {withCredentials: true};
-    // //axios.defaults.withCredentials = true;
-    // let cred = { email: 'user@test.com', password: '12345'};//, mode: 'cookie' };
-    // let res = await axios.post('http://216.225.199.20:8055/auth/login', cred);
-    // console.log (res);
-    // let tok = res.data.data.access_token;
-    // let cook = res.headers;
-
-    // // let config = {withCredentials: true,
-    // //     headers: { Cookie: 123}};
-    // // console.log(config);   
-    // res = await axios.get('http://216.225.199.20:8055/items/Students?access_token='+tok);
-    let res = await axios.get('http://216.225.199.20:8055/items/Students');
     
-    //tbody.innerHTML = JSON.stringify(res.data.data);
+    res = await axios.get(api + '/items/shifts', config);
+    
     let rows = res.data.data;
     let col_names = Object.keys(rows[0]);
     tbody.innerHTML = render_table('students',rows,col_names);
 
-    res = await axios.get('http://216.225.199.20:8055/items/Teachers');
-
-    rows = res.data.data;
-    col_names = Object.keys(rows[0]);
-    let table2 = new DataTable('#teachers', { 
-        data: rows.map(r => col_names.forEach(c => r[c])),
-        columns: col_names
-    });
     
 }
 
 function onPageLoad() {
-    pingHost();
+
+    // TODO -- save this in the localStorage for convenience?
+    cred.password = prompt('Password for ' + cred.email);
+
+    axios.post(api+'/auth/login', cred).then(res => {
+        console.log (res.data.data);
+        config.headers.Authorization = 'Bearer ' + res.data.data.access_token;
+    });
 }
 
