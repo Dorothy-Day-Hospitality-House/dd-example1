@@ -1,9 +1,9 @@
 
-let api = 'http://dorothyday.fingerson.com:8055';
+let api = 'http://db.fingerson.com';
 let config = { withCredentials: true, headers: { Authorization: 'Bearer ???'}};
 let cred = { email: 'api2@fingerson.com', password: '????'};
 
-
+ 
 
 function getElem(id) {
     return document.getElementById(id);

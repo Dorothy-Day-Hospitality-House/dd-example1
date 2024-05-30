@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+    .float-right {
+        float: right;
+    }
+    dialog {
+        border-radius: 1em;
+    }
+    dialog::backdrop {
+        background-color: #0008;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: #2196F3;
+        padding: 10px;
+    }
+    .item {
+        border: 1px solid black;
+        text-align: center;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.3.4/dist/axios.min.js"></script>
+</head>
+<body>
+    <button onclick="redraw()">refresh</button>
+
+    <div class="grid">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+      </div>
+
+<script>
+
+//=============================
+// Global data
+let api = 'http://db.fingerson.com';
+let config = { withCredentials: true, headers: { Authorization: 'Bearer ???'}};
+let cred = { email: 'api2@fingerson.com', password: '????'};
+
+// TODO -- save this in the localStorage for convenience?
+cred.password = prompt('Password for ' + cred.email);
+
+axios.post(api+'/auth/login', cred).then(res => {
+    console.log (res.data.data);
+    config.headers.Authorization = 'Bearer ' + res.data.data.access_token;
+});
+
+
+async function get_table(tableName) {
+    res = await axios.get(api+'/items/'+tableName, config);
+    return res.data.data;
+}
+
+async function redraw() {
+    let beds = await get_table('beds');
+    console.log('beds =\n', beds);
+    let guest_to_bed = await get_table('current_guest_to_bed');
+    console.log('guest_to_bed =\n', guest_to_bed);
+    let guests = guest_to_bed.map(g => g.guest_id);
+    console.log('guests =\n', guests);
+    let filter = 'filter[first_name][_eq]='+guests;
+    let guest_data = await get_table('guest_data?' + filter);
+    console.log('guest_data =\n', guest_data);
+}
+
+</script>
+ </body>
+</html>
