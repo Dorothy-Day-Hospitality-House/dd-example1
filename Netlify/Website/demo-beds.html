@@ -64,9 +64,9 @@ async function get_table(tableName) {
 async function redraw() {
     let beds = await get_table('beds');
     console.log('beds =\n', beds);
-    let guest_to_bed = await get_table('current_guest_to_bed');
-    console.log('guest_to_bed =\n', guest_to_bed);
-    let guests = guest_to_bed.map(g => g.guest_id);
+    let bed_to_guest = await get_table('current_bed_to_guest');
+    console.log('bed_to_guest =\n', bed_to_guest);
+    let guests = bed_to_guest.map(g => g.guest_id);
     console.log('guests =\n', guests);
     let filter = 'filter[first_name][_eq]='+guests;
     let guest_data = await get_table('guest_data?' + filter);
