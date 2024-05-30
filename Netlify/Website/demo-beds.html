@@ -71,6 +71,12 @@ async function redraw() {
     let filter = 'filter[guest_id][_in]=['+guests+']';
     let guest_data = await get_table('guest_data?' + filter);
     console.log('guest_data =\n', guest_data);
+    let g = guest_data[3];
+    res = await axios.get(api+'/assets/'+g.photo, config);
+    console.log('picture =\n', res.data.data);
+    g = guest_data[4];
+    res = await axios.get(api+'/assets/'+g.photo, config);
+    console.log('picture =\n', res.data.data);
 }
 
 </script>
