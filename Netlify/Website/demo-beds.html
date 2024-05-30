@@ -68,7 +68,7 @@ async function redraw() {
     console.log('bed_to_guest =\n', bed_to_guest);
     let guests = bed_to_guest.map(g => g.guest_id);
     console.log('guests =\n', guests);
-    let filter = 'filter[first_name][_eq]='+guests;
+    let filter = 'filter[guest_id][_in]=['+guests+']';
     let guest_data = await get_table('guest_data?' + filter);
     console.log('guest_data =\n', guest_data);
 }
