@@ -1,5 +1,5 @@
 
-let api = 'http://db.fingerson.com';
+let api = '//db.fingerson.com';
 let config = { withCredentials: true, headers: { Authorization: 'Bearer ???'}};
 let cred = { email: 'api2@fingerson.com', password: '????'};
 
