@@ -35,6 +35,8 @@ cred.password = prompt('Password for ' + cred.email);
 axios.post(api+'/auth/login', cred).then(res => {
     console.log (res.data.data);
     config.headers.Authorization = 'Bearer ' + res.data.data.access_token;
+},err => {
+    console.log('login failed',err);
 });
 
 async function get_collections() {
