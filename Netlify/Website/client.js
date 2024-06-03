@@ -52,13 +52,20 @@ function onLogInOut() {
     let auth = sessionStorage.getItem('ddh-auth');
     if (auth) {
         sessionStorage.setItem('ddh-auth','');
-        config.headers = {};
+        api.logout();
         showMessage('You are not logged in.');
         return;
     }
+    showMessage('Login...');
     let cred = { email: 'api2@fingerson.com', password: '????'};
     cred.password = prompt('Password for ' + cred.email);
-    api.login(cred);
+    api.login(cred).then(ok => {
+        showMessage('Login successful, '+ok);
+        sessionStorage.setItem('ddh-auth',cred.password);
+    }, err => {
+        showMessage('Login failed, '+err);
+    });
+
 }
 
 

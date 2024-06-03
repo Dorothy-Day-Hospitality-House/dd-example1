@@ -7,16 +7,26 @@ class API {
 
     // Login and keep the token in the auth.
     // cred must be { email: 'api2@fingerson.com', password: '????'}
-    async login(cred) {
-        let res = await fetch(this.base + 'auth/login', { 
+    // returns a promise, expires on success, else error message
+    login(cred) {
+
+        fetch(this.base + 'auth/login', { 
             method: "POST",
             headers: {"Content-Type": "application/json",},
             body: JSON.stringify(cred),
+        }).then(res => {
+            if (res.status > 399) 
+                throw res;
+            return res.json();
+        }).then(body => {
+            console.log(body);
+            this.auth = 'Bearer ' + body.data.access_token;
+            return body.data.expires;
         });
-        let body = await res.json();
-        console.log(body);
-        this.auth = 'Bearer ' + body.data.access_token;
-        return true;
+    }
+
+    logout() {
+        this.auth = '';
     }
 
     get(url, params=null) {
