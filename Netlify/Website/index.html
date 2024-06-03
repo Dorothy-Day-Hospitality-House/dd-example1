@@ -6,30 +6,27 @@
 <script src="https://cdn.jsdelivr.net/npm/axios@1.3.4/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 <link rel="stylesheet" href="style.css" />
+<script src="api.js"></script>
+<script src="utils.js"></script>
 <script src="client.js"></script>
 </head>
 <body onload="onPageLoad()">
 
+<div class="top-banner">
+    Dorothy Day Hospitality House
+    <span class="right" onclick="onLogInOut()"> &nbsp; Login/out &nbsp; </span>
+</div>
+<div class="top-menu">
+    <div onclick="onBedBoard()">Bed Board</div>
+    <div onclick="onGuests()">Guests</div>
+    <div onclick="onBeds()">Beds</div>
+    <div onclick="onVolunteers()">Volunteers</div>
+    <div onclick="onDailyNotes()">Daily Notes</div>
+</div>
 
-    Hello world.
 
-    <input type="button" value="Push me" onclick="onButton()"/>
-
-   
-    <hr>
-    <div id="mydiv">loading...</div>
+    <div id="content">loading...</div>
     
-    <hr>
-    <table id="teachers" class="display">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 
 </body>
 </html>

@@ -4,13 +4,65 @@ body {
     font-size: max(min(1.5vh,3vw),25px);
     font-family: 'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
     margin:0;
-    background-color: #ddc5b1;
+    background-color: #3e414c;
 }
 
-.yellow { background-color: #f5f57a; color: #8d8b00;}
-.orange { background-color: #ffad67; color: #8a5e00; }
-.red { background-color: #ff8585; color: #910000 }
 
+.color1 { background-color: #23252e; color: #f2f4f3; }
+.color2 { background-color: #847996; color: #000000; }
+.color3 { background-color: #f2f4f3; color: #847996; }
+.color4 { background-color: #91604f; color: #f2f4f3; }
+.color5 { background-color: #847996; color: #97772d; }
+
+.top-banner {
+    font-family: Georgia, Times, serif;
+    font-variant: small-caps;
+    font-weight: 700;
+    background: #847996;
+    color: #23252e;
+    text-align: center;
+}
+
+.top-banner span {
+    cursor: pointer;
+}
+
+.top-banner span:active {
+    background: #afa2c3;
+    border-radius: .5em;
+}
+
+.top-menu {
+    display: flex;
+}
+
+.top-menu > div {
+    flex: 1;
+    cursor: pointer;
+    color: #f2f4f3;
+    border: 2px solid #97772d;
+    background: #91604f;
+    border-radius: .5em;
+    margin: .3em;
+    text-align: center;
+}
+
+.top-menu > div:active {
+    transform: translateY(3px);
+    background: #a6715f;
+}
+
+.large-message {
+    font-size: 2em;
+    padding: 5em;
+}
+
+#content {
+    margin: .1em .5em;
+    padding: 1em;
+    border: 1px solid #a6715f;
+    background: #f2f4f333;
+}
 
 table {
     width: 99.9%;
