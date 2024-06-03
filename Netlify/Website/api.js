@@ -1,7 +1,7 @@
 
 class API {
     constructor() {
-        this.base = '//db.fingerson.com/';
+        this.base = 'https://db.fingerson.com/';
         this.auth = '';
     }
 
@@ -10,7 +10,7 @@ class API {
     // returns a promise, expires on success, else error message
     login(cred) {
 
-        fetch(this.base + 'auth/login', { 
+        return fetch(this.base + 'auth/login', { 
             method: "POST",
             headers: {"Content-Type": "application/json",},
             body: JSON.stringify(cred),
