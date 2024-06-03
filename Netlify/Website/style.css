@@ -7,14 +7,6 @@ body {
     background-color: #3e414c;
 }
 
-@media (min-width: 1281px) {
-    /* The following apply to DESKTOP only */
-    body {
-        font-size: 25px;
-    }
-}
-
-
 .color1 { background-color: #23252e; color: #f2f4f3; }
 .color2 { background-color: #847996; color: #000000; }
 .color3 { background-color: #f2f4f3; color: #847996; }
@@ -96,3 +88,27 @@ input[type=checkbox] {
 #mydiv {
     white-space: pre;
 }
+
+.grid {
+    display: grid;
+}
+
+.item {
+    width: 18vw;
+}
+
+.item img {
+    width: 100%;
+}
+
+/**************************
+***   MEDIA QUERIES     ***
+***************************/
+
+@media (min-width: 1281px) {
+    /* The following apply to DESKTOP only */
+    body {
+        font-size: 25px;
+    }
+}
+
