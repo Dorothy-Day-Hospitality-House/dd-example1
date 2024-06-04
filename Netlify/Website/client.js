@@ -74,6 +74,7 @@ function onLogInOut(init=false) {
             showMessage('You are not logged in.');
             return;
         }
+        cred.password = auth;
     }
     api.login(cred).then(ok => {
         showMessage('Login successful, '+ok);
