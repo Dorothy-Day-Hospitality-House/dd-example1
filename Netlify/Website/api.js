@@ -1,7 +1,7 @@
 
 class API {
     constructor() {
-        this.base = 'https://db.fingerson.com/';
+        this.base = 'https://db.fingerson.com';
         this.auth = '';
     }
 
