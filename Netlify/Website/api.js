@@ -39,6 +39,19 @@ class API {
         });
     }
 
+    // The SEARCH is similar to GET except that you can include a filter in the body
+    // see https://docs.directus.io/reference/introduction.html#search-http-method
+    search(url, data) {
+        return fetch(this.base + url, {
+            method: "SEARCH",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': this.auth
+            },
+            body: JSON.stringify(data),
+        });
+    }
+
     post(url, data) {
         return fetch(this.base + url, { 
             method: "POST",

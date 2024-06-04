@@ -90,11 +90,16 @@ input[type=checkbox] {
 }
 
 .grid {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 10px;
 }
 
 .item {
-    width: 18vw;
+    width: 17vw;
+    padding: .5em;
+    border: 1px solid black;
+    margin: .1em;
 }
 
 .item img {
