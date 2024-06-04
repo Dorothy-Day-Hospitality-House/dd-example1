@@ -24,7 +24,8 @@ async function onBedBoard() {
     let guestIDs = stays.data.map(b => b.guest_id);
     res = await api.get('/items/beds');
     let beds = await res.json();
-    res = await api.search('/items/guest_data', simpleQuery('guest_id','_in',guestIDs));
+    //res = await api.search('/items/guest_data', simpleQuery('guest_id','_in',guestIDs));
+    res = await api.get('/items/guest_data', {[`filter[guest_id][_in]`]:guestIDs});
     let guests = await res.json();
 
     let content = getElem('content');
