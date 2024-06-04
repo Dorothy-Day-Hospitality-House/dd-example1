@@ -1,13 +1,13 @@
 
 
-function renderStay(stay, bed, guest) {
+function renderStay(stay) {
     return `
     <div class="stay">
-    <img src=${api.base}/assets/${guest.photo}>
-    <span class="bedname">${bed.short_name}</span>,
+    <img src=${api.base}/assets/${stay.guest.photo}>
+    <span class="bedname">${stay.bed.short_name}</span>,
     checkin = ${stay.checkin_date},
-    name = ${guest.firstname} ${guest.lastname},
-    return = ${guest.return_date}
+    name = ${stay.guest.firstname} ${stay.guest.lastname},
+    return = ${stay.guest.return_date}
     </div>
     `
 }
@@ -15,11 +15,13 @@ function renderStay(stay, bed, guest) {
 
 function renderBedBoard(stays, beds, guests) {
     let result = '<div class="stays">'
-    stays.data.sort((a,b) => a.short_name < b.short_name ? -1 : 1)
     for (let stay of stays.data) {
-        b = beds.data.find(b => b.bed_id == stay.bed_id);
-        g = guests.data.find(g => g.guest_id == stay.guest_id);
-        result += renderStay(stay,b,g);
+        stay.bed = beds.data.find(b => b.bed_id == stay.bed_id);
+        stay.guest = guests.data.find(g => g.guest_id == stay.guest_id);
+    }
+    stays.data.sort((a,b) => a.bed.short_name < b.bed.short_name ? -1 : 1)
+    for (let stay of stays.data) {
+        result += renderStay(stay);
     }
     return result + '</div>';
 }
