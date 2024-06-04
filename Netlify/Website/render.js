@@ -24,9 +24,9 @@ function renderBedBoard(stays, beds, guests) {
     checkin_date`
     let result = '<div class="stays">'
 
-    for (let stay of stays) {
-        b = beds.find(b => b.bed_id == stay.bed_id);
-        g = guests.find(g => g.guest_id == stay.guest_id);
+    for (let stay of stays.data) {
+        b = beds.data.find(b => b.bed_id == stay.bed_id);
+        g = guests.data.find(g => g.guest_id == stay.guest_id);
         result += renderStay(stay,b,g);
     }
     return result + '</div>';
