@@ -15,6 +15,7 @@ function renderStay(stay, bed, guest) {
 
 function renderBedBoard(stays, beds, guests) {
     let result = '<div class="stays">'
+    stays.data.sort((a,b) => a.short_name < b.short_name ? -1 : 1)
     for (let stay of stays.data) {
         b = beds.data.find(b => b.bed_id == stay.bed_id);
         g = guests.data.find(g => g.guest_id == stay.guest_id);
