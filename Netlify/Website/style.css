@@ -89,21 +89,22 @@ input[type=checkbox] {
     white-space: pre;
 }
 
-.grid {
+.stays {
     display: flex;
     flex-wrap: wrap;
     font-size: 10px;
 }
 
-.item {
+.stay {
     width: 17vw;
     padding: .5em;
     border: 1px solid black;
     margin: .1em;
 }
 
-.item img {
-    width: 100%;
+.stay img {
+    width: 50%;
+    float: right;
 }
 
 /**************************
