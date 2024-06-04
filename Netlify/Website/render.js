@@ -4,7 +4,7 @@ function renderStay(stay, bed, guest) {
     return `
     <div class="stay">
     <img src=${api.base}/assets/${guest.photo}>
-    bed = <span class="bedname">${bed.short_name}</span>,
+    <span class="bedname">${bed.short_name}</span>,
     checkin = ${stay.checkin_date},
     name = ${guest.firstname} ${guest.lastname},
     return = ${guest.return_date}
@@ -14,16 +14,7 @@ function renderStay(stay, bed, guest) {
 
 
 function renderBedBoard(stays, beds, guests) {
-    `stay_id
-    user_created
-    date_created
-    user_updated
-    date_updated
-    guest_id
-    bed_id
-    checkin_date`
     let result = '<div class="stays">'
-
     for (let stay of stays.data) {
         b = beds.data.find(b => b.bed_id == stay.bed_id);
         g = guests.data.find(g => g.guest_id == stay.guest_id);
