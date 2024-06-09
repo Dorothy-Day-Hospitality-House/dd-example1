@@ -32,7 +32,9 @@ class DDayHouseApp {
                 <div class="stay">
                 <img src="${this.api.base}/assets/${guest.photo}">
                 <div class="bedname">${bed.short_name}</div>
-                ${guest.firstname}<br>${guest.lastname}
+                ${guest.firstname}
+                <br>${guest.lastname}
+                <br>${guest.notes}
                 </div> `;
         }
         // Empty bed
@@ -80,7 +82,33 @@ class DDayHouseApp {
 
 
     async onGuests() {
-        console.log('begin onGuests');
+        let content = getElem('content');
+        content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+        let guests = await this.getTable('guest_data', { limit: 10000 });        
+        const gridOptions = {
+            rowData: guests,
+            columnDefs: [
+                {field:"guest_id"},
+                {field:"lastname"},
+                {field:"firstname"},
+                {field:"photo"},
+                {field:"identification"},
+                {field:"date_of_birth"},
+                {field:"notes"},
+                {field:"state"},
+                {field:"veteran"},
+                {field:"return_date"},
+                {field:"contact_phone_no"},
+                {field:"gender"},
+                {field:"contact_name"},
+                {field:"banned_detail"},
+                {field:"banned_until"},
+                {field:"banned"},
+            ]
+        };        
+        const grid = document.getElementById('guest-grid');
+        agGrid.createGrid(grid, gridOptions);
+           
     }
     
     async onBeds() {
@@ -89,6 +117,33 @@ class DDayHouseApp {
     
     async onVolunteers() {
         console.log('begin onVolunteers');
+
+        //----------------------------------
+        // Some sample code to make a grid...
+
+        let content = getElem('content');
+        content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+
+        // Grid Options: Contains all of the data grid configurations
+        const gridOptions = {
+            // Row Data: The data to be displayed.
+            rowData: [
+            { make: "Tesla", model: "Model Y", price: 64950, electric: true },
+            { make: "Ford", model: "F-Series", price: 33850, electric: false },
+            { make: "Toyota", model: "Corolla", price: 29600, electric: false },
+            ],
+            // Column Definitions: Defines the columns to be displayed.
+            columnDefs: [
+            { field: "make" },
+            { field: "model" },
+            { field: "price" },
+            { field: "electric" }
+            ]
+        };
+        
+        // Your Javascript code to create the data grid
+        const grid = document.getElementById('guest-grid');
+        agGrid.createGrid(grid, gridOptions);
     }
     
     async onDailyNotes() {
