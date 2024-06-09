@@ -17,3 +17,12 @@ function simpleQuery(field,oper,data) {
 }
 
 
+// Returns a shortened version of the string, for instance
+// shorten('abcdefghij',5) will return 'ab...'
+function shorten(data, maxlen) {
+    let x = String(data);
+    if (data && x.length > maxlen && maxlen > 3)
+        return x.substring(0,maxlen-3) + '...';
+    return data;
+}
+

@@ -34,7 +34,7 @@ class DDayHouseApp {
                 <div class="bedname">${bed.short_name}</div>
                 ${guest.firstname}
                 <br>${guest.lastname}
-                <br>${guest.notes}
+                <br>${shorten(guest.notes, 110)}
                 </div> `;
         }
         // Empty bed
@@ -45,7 +45,6 @@ class DDayHouseApp {
             EMPTY
             </div> `;
     }
-    
     // Returns HTML for the bed board
     renderBedBoard(stays, beds, guests) {
         let result = '<div class="stays">';
