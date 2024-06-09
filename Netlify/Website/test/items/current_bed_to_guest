@@ -39,7 +39,7 @@
             "date_created": "2024-06-09T01:57:08.750Z",
             "user_updated": null,
             "date_updated": null,
-            "guest_id": "996c9",
+            "guest_id": "996c9x",
             "bed_id": "b90635fa-8ae3-4dfb-92de-1b1af8ee5d92",
             "checkin_date": "2024-06-04",
             "type_of_stay": "Regular"
@@ -127,7 +127,7 @@
             "date_created": "2024-06-09T01:57:08.778Z",
             "user_updated": null,
             "date_updated": null,
-            "guest_id": "43ce8",
+            "guest_id": "43ce8x",
             "bed_id": "00af8a2d-693e-470b-ac3a-ed40a0438217",
             "checkin_date": "2024-05-30",
             "type_of_stay": "Regular"

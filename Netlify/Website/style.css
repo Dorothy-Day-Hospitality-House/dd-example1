@@ -128,7 +128,6 @@ dialog button {
 
 .stay {
     width: 17vw;
-    padding: .5em;
     border: 1px solid black;
     margin: .1em;
     min-width: 200px;
@@ -136,11 +135,12 @@ dialog button {
 
 .stay img {
     width: 50%;
-    float: right;
+    float: left;
+    margin: .1em;
 }
 
 .bedname {
-    font-size: 2.6em;
+    font-size: 2em;
     font-weight: bolder;
 }
 

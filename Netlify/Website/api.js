@@ -3,7 +3,8 @@ class DirectusAPI {
     constructor() {
         this.base = 'https://db.fingerson.com';
         this.auth = {};
-        if (location.href.indexOf('192.168')==7)
+        // Below is for local testing ONLY. it reads data from test/items/*
+        if (location.href.indexOf('192.168')==7 || location.href.indexOf('localhost')==7)
             this.base = location.href + 'test'
     }
 

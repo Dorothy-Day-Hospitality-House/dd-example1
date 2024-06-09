@@ -10,10 +10,10 @@ class DDayHouseApp {
     // If filter is empty, this will keep a cache of the data
     async getTable(table, params=null) {
         let key = table + (params ? JSON.stringify(params) : '');
-        if (params == null && key in this.cache) {
+        if (key in this.cache) {
             return this.cache[key];                  // Get the data from the cache
         }
-        console.log('get table ', table);
+        console.log('get table ', key);
         let res = await this.api.get('/items/' + table, params);
         let result = await res.json();
         if (!'data' in result) {            // ERROR, the api failed
@@ -26,15 +26,22 @@ class DDayHouseApp {
     }
 
     // Returns HTML for a single tile on the bed board
-    renderBed(bed) {
+    renderBed(bed, guest) {
+        if (guest) {
+            return `
+                <div class="stay">
+                <img src="${this.api.base}/assets/${guest.photo}">
+                <div class="bedname">${bed.short_name}</div>
+                ${guest.firstname}<br>${guest.lastname}
+                </div> `;
+        }
+        // Empty bed
         return `
-        <div class="stay">
-        <span class="bedname">${bed.short_name}</span>,
-        </div> `;
-        //<img src="${this.api.base}/assets/${bed.guest.photo}">
-        // checkin = ${bed.checkin_date},
-        // name = ${bed.guest.firstname} ${bed.guest.lastname},
-        // return = ${bed.guest.return_date}
+            <div class="stay">
+            <img src="emptybed.png">
+            <div class="bedname">${bed.short_name}</div>
+            EMPTY
+            </div> `;
     }
     
     // Returns HTML for the bed board
@@ -43,7 +50,9 @@ class DDayHouseApp {
         beds.sort((a,b) => a.short_name < b.short_name ? -1 : 1)
 
         for (let bed of beds) {
-            result += this.renderBed(bed);
+            let stay = stays.find(s => s.bed_id == bed.bed_id);
+            let guest = stay && guests.find(g => g.guest_id == stay.guest_id);
+            result += this.renderBed(bed, guest);
         }
         // for (let stay of stays) {
         //     stay.bed = beds.find(b => b.bed_id == stay.bed_id);
