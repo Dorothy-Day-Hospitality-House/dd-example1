@@ -1,0 +1,212 @@
+{"data": 
+    [
+        {
+            "stay_id": "101ed769-2abb-416d-809e-1bb1a6eee824",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.775Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "30373",
+            "bed_id": "cc9301b0-3b94-486b-8bbe-b0ea6d6e0369",
+            "checkin_date": "2024-06-07",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "147d2a7c-bea0-4a9b-916d-31a5640ff8b1",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.757Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "61160",
+            "bed_id": "c0d5e871-a1a2-4811-8480-3c166cb91036",
+            "checkin_date": "2024-06-07",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "17597368-7ced-4ef0-b85f-1597b1ae573e",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.764Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "daf7d",
+            "bed_id": "80a1c8f5-e30a-4512-a312-1586657980e1",
+            "checkin_date": "2024-06-04",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "1d07e3f6-0294-4738-85e6-9f3ce8ee2bf5",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.750Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "996c9",
+            "bed_id": "b90635fa-8ae3-4dfb-92de-1b1af8ee5d92",
+            "checkin_date": "2024-06-04",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "30a12b80-9e9e-48db-a257-b34d9bb47dff",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.781Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "c8f2b",
+            "bed_id": "019041bc-5934-4084-9398-884907a1d7d8",
+            "checkin_date": "2024-06-07",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "49c8146c-bf57-4919-9daa-547060216e92",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.770Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "b540d",
+            "bed_id": "abde1129-f527-40e3-b371-5c8a7cb97490",
+            "checkin_date": "2024-05-21",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "61486ad0-41c2-4093-8659-4d68bea238e1",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.777Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "02cb2",
+            "bed_id": "43c77aaa-7dc5-4808-b019-fcab42bc2113",
+            "checkin_date": "2024-05-27",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "68b9a5e3-5355-4f5c-8503-5407ed54a38b",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.762Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "2ba86",
+            "bed_id": "15943701-2049-4a2d-8959-4334063a1220",
+            "checkin_date": "2024-05-31",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "7c3a9eb7-ead0-442f-bf30-41a41f6cfc9f",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.766Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "f03aa",
+            "bed_id": "5868fcec-4005-43ce-b255-f32b52e92974",
+            "checkin_date": "2024-06-03",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "8d9118ef-10b8-4dc4-8ec0-9820d8a71f17",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.773Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "6523b",
+            "bed_id": "ff3db532-49cd-4a2b-b9a9-30b65dc50ce4",
+            "checkin_date": "2024-05-29",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "931dd86d-afbc-4b18-bfe0-a08ee1363ac0",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.754Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "74ddb",
+            "bed_id": "07606513-5f56-41e1-8224-b3e3215fc095",
+            "checkin_date": "2024-06-07",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "a1dd2230-aefe-47fe-ad23-0ce04fe32221",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.778Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "43ce8",
+            "bed_id": "00af8a2d-693e-470b-ac3a-ed40a0438217",
+            "checkin_date": "2024-05-30",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "b584accf-754e-40a5-bd1b-4df6028444d1",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.752Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "c0970",
+            "bed_id": "758af13f-b5e1-4277-b672-5836b15e4cc5",
+            "checkin_date": "2024-06-03",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "c9110716-3d75-400f-81bb-1f6469535fe5",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.747Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "90708",
+            "bed_id": "70f52c88-2448-4987-9fb2-f90871cc2cc4",
+            "checkin_date": "2024-05-30",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "d014b369-de74-4100-afd9-857f51dbb928",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.740Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "6b40d",
+            "bed_id": "520d74f7-a7fe-4f04-8d31-c07aa56e2abd",
+            "checkin_date": "2024-06-07",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "d62802db-f95d-44fa-a336-94788afac7e3",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.783Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "fd068",
+            "bed_id": "88b6791f-4b89-4f1e-955b-369c1039337b",
+            "checkin_date": "2024-06-07",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "df6c3b0c-3b34-45a7-a57f-f41caaf31978",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.785Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "37483",
+            "bed_id": "f76b3844-d535-408f-a2d4-fbcb06eb28d2",
+            "checkin_date": "2024-05-26",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "f65c3c1a-6d8e-48d3-9424-1023d08bd718",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.759Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "4e419",
+            "bed_id": "6b7de4ab-5f37-40f7-b6ad-6d7d9b84d393",
+            "checkin_date": "2024-06-08",
+            "type_of_stay": "Regular"
+        },
+        {
+            "stay_id": "f9a95496-c13c-4fbb-b322-10d744602efa",
+            "user_created": "de74a37c-5650-41e5-a250-e5c549e88c78",
+            "date_created": "2024-06-09T01:57:08.768Z",
+            "user_updated": null,
+            "date_updated": null,
+            "guest_id": "36e68",
+            "bed_id": "804ab213-a447-4d9e-8677-d7852cd41b00",
+            "checkin_date": "2024-06-05",
+            "type_of_stay": "Regular"
+        }
+    ]}

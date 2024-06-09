@@ -3,6 +3,8 @@ class DirectusAPI {
     constructor() {
         this.base = 'https://db.fingerson.com';
         this.auth = {};
+        if (location.href.indexOf('192.168')==7)
+            this.base = location.href + 'test'
     }
 
 
@@ -12,10 +14,10 @@ class DirectusAPI {
     async login(cred, keep=true) {
         let res = await this.post('/auth/login', cred);
         if (this.parseAuthResult(res)) {
-            let key = JSON.stringify(cred);
-            sessionStorage.setItem('ddhh-cred', key);
+            let value = JSON.stringify(cred);
+            sessionStorage.setItem('ddhh-cred', value);
             if (keep) 
-                localStorage.setItem('ddhh-cred', key);
+                localStorage.setItem('ddhh-cred', value);
         }
     }
 

@@ -9,8 +9,9 @@ class DDayHouseApp {
     // This gets all the rows of a table, with optional filter parameters.
     // If filter is empty, this will keep a cache of the data
     async getTable(table, params=null) {
-        if (params == null && table in this.cache) {
-            return this.cache[table];                  // Get the data from the cache
+        let key = table + (params ? JSON.stringify(params) : '');
+        if (params == null && key in this.cache) {
+            return this.cache[key];                  // Get the data from the cache
         }
         console.log('get table ', table);
         let res = await this.api.get('/items/' + table, params);
@@ -20,8 +21,7 @@ class DDayHouseApp {
             throw Error(result.errors[0].message);
         }
         console.log('rows found = '+result.data.length);
-        if (params == null) 
-            this.cache[table] = result.data;    // Save results to the cache
+        this.cache[key] = result.data;    // Save results to the cache
         return result.data;
     }
 
@@ -62,7 +62,7 @@ class DDayHouseApp {
         console.log('begin onBedBoard');
         let beds = await this.getTable('beds');
         let stays = await this.getTable('current_bed_to_guest');
-        let guests = await this.getTable('guest_data');
+        let guests = await this.getTable('guest_data', { limit: 10000 });
 
         let content = getElem('content');
         content.innerHTML = this.renderBedBoard(stays, beds, guests);
