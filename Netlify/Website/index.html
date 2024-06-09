@@ -15,19 +15,31 @@
 
 <div class="top-banner">
     Dorothy Day Hospitality House
-    <span class="right" onclick="onLogInOut()"> &nbsp; Login/out &nbsp; </span>
+    <span onclick="app.onLogInOut()"> &nbsp; Login/out &nbsp; </span>
 </div>
 <div class="top-menu">
-    <div onclick="onBedBoard()">Bed Board</div>
-    <div onclick="onGuests()">Guests</div>
-    <div onclick="onBeds()">Beds</div>
-    <div onclick="onVolunteers()">Volunteers</div>
-    <div onclick="onDailyNotes()">Daily Notes</div>
+    <div onclick="app.onBedBoard()">Bed Board</div>
+    <div onclick="app.onGuests()">Guests</div>
+    <div onclick="app.onBeds()">Beds</div>
+    <div onclick="app.onVolunteers()">Volunteers</div>
+    <div onclick="app.onDailyNotes()">Daily Notes</div>
 </div>
 
 
     <div id="content">loading...</div>
     
+    <dialog id="login">
+        <div onclick="app.onLogin(0)">X</div>
+        <h3>Login</h3>
+        <label for="email">Username:</label>
+        <input id="email" name="email" type="email" value="api2">
+        <br/>
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password" 
+            onkeyup="if (event.key=='Enter') app.onLogin(2)">
+        <p>
+        <button id="login-ok" onclick="app.onLogin(1)">OK</button></p>
+    </dialog>
 
 </body>
 </html>

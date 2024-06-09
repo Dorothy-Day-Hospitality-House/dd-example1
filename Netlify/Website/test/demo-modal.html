@@ -18,6 +18,8 @@
 
     <button onclick="show_modal(2)">click me</button>
 
+    <button onclick="show_modal3()">click me</button>
+
 <!--
     NOTE the first box is simple,
     
@@ -38,7 +40,7 @@
 
 <script>
 
-function close_box1(e,value) {
+    function close_box1(e,value) {
         console.log('value is',value);
         let box = e.target;
         while (box) {
@@ -75,6 +77,27 @@ function close_box1(e,value) {
             <button onclick="close_box2(event,1)">OK</button>
             `;
         box.showModal();
+
+    }
+
+    function close_box(id,val) {
+        let b = document.getElementById(id);
+        b.close();
+        console.log('value =',val);
+    }
+
+    function show_modal3() {
+        // Here we create our dynamic modal
+        let box = `
+            <dialog id="box3">
+                <button onclick="close_box3(box3,0)" class="float-right">X</button>
+                <h1>This is the title</h1>
+                Now is the time for all good box to close when they are told.
+                <button onclick="close_box3(box3,1)">OK</button>
+            </dialog>
+            `;
+        let i = document.body.append(box);
+        i.showModal();
 
     }
 

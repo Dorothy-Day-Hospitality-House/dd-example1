@@ -1,66 +1,92 @@
 
-class API {
+class DirectusAPI {
     constructor() {
         this.base = 'https://db.fingerson.com';
-        this.auth = '';
+        this.auth = {};
     }
+
 
     // Login and keep the token in the auth.
     // cred must be { email: 'api2@fingerson.com', password: '????'}
-    // returns a promise, expires on success, else error message
-    login(cred) {
-
-        return fetch(this.base + '/auth/login', { 
-            method: "POST",
-            headers: {"Content-Type": "application/json",},
-            body: JSON.stringify(cred),
-        }).then(res => {
-            if (res.status > 399) 
-                throw res;
-            return res.json();
-        }).then(body => {
-            console.log(body);
-            this.auth = 'Bearer ' + body.data.access_token;
-            return body.data.expires;
-        });
-    }
-
-    logout() {
-        this.auth = '';
-    }
-
-    get(url, params=null) {
-        if (params) {
-            url += '?' +new URLSearchParams(params);
+    // keep=true will save cred in local storage (which doesn't expire)
+    async login(cred, keep=true) {
+        let res = await this.post('/auth/login', cred);
+        if (this.parseAuthResult(res)) {
+            let key = JSON.stringify(cred);
+            sessionStorage.setItem('ddhh-cred', key);
+            if (keep) 
+                localStorage.setItem('ddhh-cred', key);
         }
-        return fetch(this.base + url, { 
-            method: "GET",
-            headers: { 'Authorization': this.auth }
-        });
     }
 
-    // The SEARCH is similar to GET except that you can include a filter in the body
-    // see https://docs.directus.io/reference/introduction.html#search-http-method
-    search(url, data) {
-        return fetch(this.base + url, {
-            method: "SEARCH",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': this.auth
-            },
-            body: JSON.stringify(data),
-        });
+    // Private method, return true on success. Otherwise throw error
+    async parseAuthResult(res) {
+        if (res.status == 200) {
+            let body = await res.json();
+            console.log(body);
+            if ('data' in body) {
+                this.auth = body.data;
+                this.auth['expire_time'] = this.auth.expires + Date.now();
+                return true;
+            }
+        }
+        throw Error('Login failed. see network log for more information.');
     }
 
-
-    post(url, data) {
-        return fetch(this.base + url, { 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': this.auth
-            },
-            body: JSON.stringify(data),
-        });
+    // Logout, invalidate the token, and clear all the local storage
+    async logout() {
+        if ('refresh_token' in this.auth) {
+            this.post('/auth/logout', {refresh_token: this.auth.refresh_token});
+        }
+        this.auth = {};
+        sessionStorage.removeItem('ddhh-cred');
+        localStorage.removeItem('ddhh-cred');
     }
+
+    // Returns a string 'Bearer xxxxxxxxxxx' using the current token
+    // If missing token, return null
+    // If expired token, try to renew it.
+    async bearerToken() {
+        if ('access_token' in this.auth) {
+            if (this.auth.expire_time - Date.now() < 5000) {
+                // if less than 5 seconds remain to expire, then refresh the authentication
+                console.log('attempting to refresh the authentication');
+                let res = await this.post('/auth/refresh', {
+                    refresh_token: this.auth.refresh_token,
+                    mode: 'json'
+                });
+                await this.parseAuthResult(res);
+            }
+            return 'Bearer ' + this.auth.access_token;
+        }
+    }
+
+    // GET from api, example code
+    //   let res = await api.get('/hello', {name:'john'});
+    //   let body = await res.json();
+    //   console.log(res.status, body);
+    async get(url, params=null) {
+        if (params) {
+            url += '?' + new URLSearchParams(params);
+        }
+        let headers = { 
+            'Authorization': await this.bearerToken() 
+        };
+        return fetch(this.base + url, { method: 'GET', headers });
+    }
+
+    // POST to api, example code
+    //   let res = await api.post('/hello', {name:'john'});
+    //   let body = await res.json();
+    //   console.log(res.status, body);
+    async post(url, data) {
+        let headers = {
+            'Content-Type': 'application/json',
+            'Authorization': await this.bearerToken()
+        };
+        let body = JSON.stringify(data);
+        return fetch(this.base + url, { method: 'POST', headers, body });
+    }
+
+ 
 }
