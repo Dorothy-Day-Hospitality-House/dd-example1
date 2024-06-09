@@ -19,35 +19,40 @@ class DDayHouseApp {
             console.error(result);
             throw Error(result.errors[0].message);
         }
+        console.log('rows found = '+result.data.length);
         if (params == null) 
             this.cache[table] = result.data;    // Save results to the cache
         return result.data;
     }
 
     // Returns HTML for a single tile on the bed board
-    renderStay(stay) {
+    renderBed(bed) {
         return `
         <div class="stay">
-        <img src="${this.api.base}/assets/${stay.guest.photo}">
-        <span class="bedname">${stay.bed.short_name}</span>,
-        checkin = ${stay.checkin_date},
-        name = ${stay.guest.firstname} ${stay.guest.lastname},
-        return = ${stay.guest.return_date}
-        </div>
-        `
+        <span class="bedname">${bed.short_name}</span>,
+        </div> `;
+        //<img src="${this.api.base}/assets/${bed.guest.photo}">
+        // checkin = ${bed.checkin_date},
+        // name = ${bed.guest.firstname} ${bed.guest.lastname},
+        // return = ${bed.guest.return_date}
     }
     
     // Returns HTML for the bed board
     renderBedBoard(stays, beds, guests) {
-        let result = '<div class="stays">'
-        for (let stay of stays) {
-            stay.bed = beds.find(b => b.bed_id == stay.bed_id);
-            stay.guest = guests.find(g => g.guest_id == stay.guest_id);
+        let result = '<div class="stays">';
+        beds.sort((a,b) => a.short_name < b.short_name ? -1 : 1)
+
+        for (let bed of beds) {
+            result += this.renderBed(bed);
         }
-        stays.sort((a,b) => a.bed.short_name < b.bed.short_name ? -1 : 1)
-        for (let stay of stays) {
-            result += renderStay(stay);
-        }
+        // for (let stay of stays) {
+        //     stay.bed = beds.find(b => b.bed_id == stay.bed_id);
+        //     stay.guest = guests.find(g => g.guest_id == stay.guest_id);
+        // }
+        // stays.sort((a,b) => a.bed.short_name < b.bed.short_name ? -1 : 1)
+        // for (let stay of stays) {
+        //     result += renderStay(stay);
+        // }
         return result + '</div>';
     }   
         
@@ -57,8 +62,6 @@ class DDayHouseApp {
         console.log('begin onBedBoard');
         let beds = await this.getTable('beds');
         let stays = await this.getTable('current_bed_to_guest');
-        //res = await api.search('/items/guest_data', simpleQuery('guest_id','_in',guestIDs));
-        //res = await api.get('/items/guest_data', {[`filter[guest_id][_in]`]:guestIDs});
         let guests = await this.getTable('guest_data');
 
         let content = getElem('content');
@@ -106,6 +109,7 @@ class DDayHouseApp {
         }
         getElem('login-ok').disabled = true;
         let email = getElem('email').value;
+        if (email.indexOf('@') < 0) email += '@fingerson.com';
         let password = getElem('password').value;
         this.api.login({ email, password }).then(() => {
             this.showMessage('Login successful.');
