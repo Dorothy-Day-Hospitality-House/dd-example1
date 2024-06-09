@@ -126,30 +126,6 @@ class DDayHouseApp {
         console.log('begin onLogInOut');
         this.showLogin();
 
-        // let auth = sessionStorage.getItem('ddh-auth');
-        // if (auth && !init) {
-        //     sessionStorage.setItem('ddh-auth','');
-        //     api.logout();
-        //     showMessage('You are not logged in.');
-        //     return;
-        // }
-        // showMessage('Login...');
-        // let cred = { email: 'api2@fingerson.com', password: auth};
-        // if (!auth)  {
-        //     if (!init)
-        //         auth = prompt('Password for ' + cred.email);
-        //     if (!auth) {
-        //         showMessage('You are not logged in.');
-        //         return;
-        //     }
-        //     cred.password = auth;
-        // }
-        // api.login(cred).then(ok => {
-        //     showMessage('Login successful, '+ok);
-        //     sessionStorage.setItem('ddh-auth',cred.password);
-        // }, err => {
-        //     showMessage('Login failed, '+err);
-        // });
 
     }
 
@@ -163,13 +139,5 @@ function onPageLoad() {
 
     window.app = new DDayHouseApp();
 
-    // onLogInOut(true);
-    // TODO -- save this in the localStorage for convenience?
-    //cred.password = prompt('Password for ' + cred.email);
-
-    // axios.post(api+'/auth/login', cred).then(res => {
-    //     console.log (res.data.data);
-    //     config.headers.Authorization = 'Bearer ' + res.data.data.access_token;
-    // });
 }
 

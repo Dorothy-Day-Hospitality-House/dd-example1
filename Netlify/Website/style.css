@@ -27,21 +27,22 @@ input, select, textarea, button {
     text-align: center;
 }
 
-.top-banner span {
+.top-banner button {
     cursor: pointer;
     float: right;
+    border: 0px;
+    background: transparent;
 }
 
-.top-banner span:active {
+.top-banner button:active {
     background: #afa2c3;
-    border-radius: .5em;
 }
 
 .top-menu {
     display: flex;
 }
 
-.top-menu > div {
+.top-menu > button {
     flex: 1;
     cursor: pointer;
     color: #f2f4f3;
@@ -52,7 +53,7 @@ input, select, textarea, button {
     text-align: center;
 }
 
-.top-menu > div:active {
+.top-menu > button:active {
     transform: translateY(3px);
     background: #a6715f;
 }
@@ -79,7 +80,6 @@ th {
 
 button, select {
     font-size: 0.9em;
-    font-weight: bolder;
     vertical-align: bottom;
 }
 
