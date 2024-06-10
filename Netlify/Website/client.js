@@ -82,20 +82,21 @@ class DDayHouseApp {
 
     async onGuests() {
         let content = getElem('content');
-        content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+        content.innerHTML = `Loading...`;
         let guests = await this.getTable('guest_data', { limit: 10000 });        
+        content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         const gridOptions = {
             rowData: guests,
             columnDefs: [
-                {field:"guest_id"},
+              //  {field:"guest_id"},
                 {field:"lastname"},
                 {field:"firstname"},
-                {field:"photo"},
+              //  {field:"photo"},
                 {field:"identification"},
                 {field:"date_of_birth"},
                 {field:"notes"},
                 {field:"state"},
-                {field:"veteran"},
+              //  {field:"veteran"},
                 {field:"return_date"},
                 {field:"contact_phone_no"},
                 {field:"gender"},
@@ -105,7 +106,7 @@ class DDayHouseApp {
                 {field:"banned"},
             ]
         };        
-        const grid = document.getElementById('guest-grid');
+        const grid = getElem('guest-grid');
         agGrid.createGrid(grid, gridOptions);
            
     }
