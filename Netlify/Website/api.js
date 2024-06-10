@@ -62,6 +62,7 @@ class DirectusAPI {
             }
             return 'Bearer ' + this.auth.access_token;
         }
+        return 'Basic YW5vbjphbm9u';
     }
 
     // GET from api, example code
