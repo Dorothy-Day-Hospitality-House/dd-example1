@@ -91,7 +91,13 @@ class DDayHouseApp {
               //  {field:"guest_id"},
                 {field:"lastname"},
                 {field:"firstname"},
-              //  {field:"photo"},
+                {
+                    name:"Thumbnail",
+                    field:"photo", 
+                    cellRenderer: params => {
+                        return `<img src="${this.api.base}/assets/${params.value}?key=system-small-cover">`
+                    }
+                },
                 {field:"identification"},
                 {field:"date_of_birth"},
                 {field:"notes"},
