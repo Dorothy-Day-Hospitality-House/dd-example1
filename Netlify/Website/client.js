@@ -122,7 +122,24 @@ class DDayHouseApp {
         let content = getElem('content');
         content.innerHTML = `Loading...`;
         let current_guest = await this.getTable('current_bed_to_guest');  
-        let guests = await this.getTable('guest_data', { limit: 10000 });      
+        let guests = await this.getTable('guest_data', { limit: 10000 }); 
+        let beds = await this.getTable('beds');
+        
+        for (let cg of current_guest) {
+            //console.log('current_guest guest_id: ',cg.guest_id);
+            let guest = guests.find(g => g.guest_id == cg.guest_id);
+            let bed = beds.find(b => b.bed_id == cg.bed_id);
+            //console.log('guest lastname = ',guest.lastname);
+            //console.log('guest firstname = ',guest.firstname);
+            //console.log('guest matched to guest_id')
+            cg.lastname = guest.lastname;
+            cg.firstname = guest.firstname;
+            cg.bed_name = bed.bed_name;
+        }
+
+        // sort by lastname
+        current_guest.sort((a,b) => (a.bed_name > b.bed_name) ? 1 : ((b.bed_name > a.bed_name) ? -1 : 0))
+
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
 
         // for (let cg of current_guest) {
@@ -132,13 +149,11 @@ class DDayHouseApp {
         const gridOptions = {
             rowData: current_guest,
             columnDefs: [
-              //  {field:"guest_id"},
-                {field:"guest_id"},
-                {field:"stay_id"},
+                {field:"lastname"},
+                {field:"firstname"},
                 {field:"checkin_date"},
                 {field:"type_of_stay"},
-            //    {field:"lastname"},
-            //    {field:"firstname"},
+                {field:"bed_name"},
             ]
         };        
         const grid = getElem('guest-grid');
