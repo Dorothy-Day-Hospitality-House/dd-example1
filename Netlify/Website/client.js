@@ -251,6 +251,24 @@ class DDayHouseApp {
         }
 
         // sort by date_of_shift, and then shift_sort
+        // sort in descending order by date of visit
+        // vol.sort((a,b) => (a.date_of_shift < b.date_of_shift) ? 1 : ((b.date_of_shift < a.date_of_shift) ? -1 : 0));
+
+        // Apply array.sort with comparison function
+        vol.sort(function (a, b) {
+            let af = a.date_of_shift;
+            let bf = b.date_of_shift;
+            let as = a.shift_sort;
+            let bs = b.shift_sort;
+ 
+            // If first value is same
+            if (af == bf) {
+                return (as > bs) ? -1 : (as < bs) ? 1 : 0;
+            } else {
+                return (af > bf) ? -1 : 1;
+            }
+        });
+
 
         //
 
@@ -261,14 +279,14 @@ class DDayHouseApp {
                 // {field:"log_id"},
                 // {field:"shift_id"},
                 // {field:"checkin_date"},
-                {field:"volunteer_names"},
-                {field:"date_of_shift"},
-                { headerName: 'Shift Time', field: 'shift_desc'},
-                { headerName: 'Shift Sort', field: 'shift_sort'},
-                {field:"note"},
-                {field:"important_info"},
-                { headerName: 'Men Turned Away', field: 'men_turned_away' },
-                { headerName: 'Women Turned Away', field: 'women_turned_away' },
+                { headerName:  'Volunteers', field: 'volunteer_names', filter: false, sortable: false },
+                { headerName:  'Date', field: 'date_of_shift', filter: true, sortable:  false },
+                { headerName: 'Shift Time', field: 'shift_desc', sortable: false },
+                { headerName: 'Shift Sort', field: 'shift_sort', sortable: false },
+                { field: 'note', filter: true, sortable: false},
+                { field:"important_info", filter: true, sortable: false },
+                { headerName: 'Men Turned Away', field: 'men_turned_away', sortable: false },
+                { headerName: 'Women Turned Away', field: 'women_turned_away', sortable: false },
             ]
         };        
         const grid = getElem('guest-grid');
