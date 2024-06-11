@@ -34,6 +34,8 @@ class DirectusAPI {
             }
         }
         throw Error('Login failed. see network log for more information.');
+        alert("wrong user/pass");
+        return false;
     }
 
     // Logout, invalidate the token, and clear all the local storage
