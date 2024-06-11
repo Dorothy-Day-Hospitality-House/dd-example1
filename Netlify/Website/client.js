@@ -134,18 +134,18 @@ class DDayHouseApp {
                         return `<img src="${this.api.base}/assets/${params.value}?key=system-small-cover">`
                     }
                 },
+                {field: 'banned', filter: true },
                 {field: 'identification', filter: true },
                 {field: 'date_of_birth', filter: true },
                 {field: 'notes', filter: true },
                 {field:"state"},
-              //  {field:"veteran"},
+                //  {field:"veteran"},
                 {field:"return_date"},
                 {field:"contact_phone_no"},
                 {field:"gender"},
                 {field:"contact_name"},
                 {field:"banned_detail"},
                 {field:"banned_until"},
-                {field: 'banned', filter: true },
             ],
             rowSelection: "single",
         };        
