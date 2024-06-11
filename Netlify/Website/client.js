@@ -135,12 +135,12 @@ class DDayHouseApp {
                     }
                 },
                 {field: 'banned', filter: true },
+                {field:"return_date"},
                 {field: 'identification', filter: true },
                 {field: 'date_of_birth', filter: true },
                 {field: 'notes', filter: true },
                 {field:"state"},
                 //  {field:"veteran"},
-                {field:"return_date"},
                 {field:"contact_phone_no"},
                 {field:"gender"},
                 {field:"contact_name"},
