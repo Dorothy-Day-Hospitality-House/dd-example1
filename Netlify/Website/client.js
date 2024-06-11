@@ -124,9 +124,9 @@ class DDayHouseApp {
             rowData: guests,
             columnDefs: [
               //  {field:"guest_id"},
-                {field: "button", cellRenderer: CustomButtonComponent },
-                {field:"lastname"},
-                {field:"firstname"},
+                // {field: "button", cellRenderer: CustomButtonComponent },
+                {field: 'lastname', filter: true},
+                {field: 'firstname', filter:true},
                 {
                     name:"Thumbnail",
                     field:"photo", 
@@ -134,8 +134,8 @@ class DDayHouseApp {
                         return `<img src="${this.api.base}/assets/${params.value}?key=system-small-cover">`
                     }
                 },
-                {field:"identification"},
-                {field:"date_of_birth"},
+                {field: 'identification', filter: true},
+                {field: 'date_of_birth', filter: true},
                 {field:"notes"},
                 {field:"state"},
               //  {field:"veteran"},
@@ -146,7 +146,8 @@ class DDayHouseApp {
                 {field:"banned_detail"},
                 {field:"banned_until"},
                 {field:"banned"},
-            ]
+            ],
+            rowSelection: "single",
         };        
         const grid = getElem('guest-grid');
         agGrid.createGrid(grid, gridOptions);
