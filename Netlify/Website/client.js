@@ -121,14 +121,24 @@ class DDayHouseApp {
         console.log('begin onBeds');
         let content = getElem('content');
         content.innerHTML = `Loading...`;
-        let current_guest = await this.getTable('current_bed_to_guest');        
+        let current_guest = await this.getTable('current_bed_to_guest');  
+        let guests = await this.getTable('guest_data', { limit: 10000 });      
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+
+        // for (let cg of current_guest) {
+        //     let guest = current_guest && guests.find(gid => gid.guest_id == cg.guest_id)
+        // }
+
         const gridOptions = {
             rowData: current_guest,
             columnDefs: [
               //  {field:"guest_id"},
                 {field:"guest_id"},
                 {field:"stay_id"},
+                {field:"checkin_date"},
+                {field:"type_of_stay"},
+            //    {field:"lastname"},
+            //    {field:"firstname"},
             ]
         };        
         const grid = getElem('guest-grid');
@@ -137,32 +147,23 @@ class DDayHouseApp {
     
     async onVolunteers() {
         console.log('begin onVolunteers');
-
-        //----------------------------------
-        // Some sample code to make a grid...
-
         let content = getElem('content');
+        content.innerHTML = `Loading...`;
+        let vol = await this.getTable('volunteer_log');  
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
-
-        // Grid Options: Contains all of the data grid configurations
-        const gridOptions = {
-            // Row Data: The data to be displayed.
-            rowData: [
-            { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-            { make: "Ford", model: "F-Series", price: 33850, electric: false },
-            { make: "Toyota", model: "Corolla", price: 29600, electric: false },
-            ],
-            // Column Definitions: Defines the columns to be displayed.
-            columnDefs: [
-            { field: "make" },
-            { field: "model" },
-            { field: "price" },
-            { field: "electric" }
-            ]
-        };
         
-        // Your Javascript code to create the data grid
-        const grid = document.getElementById('guest-grid');
+        const gridOptions = {
+            rowData: vol,
+            columnDefs: [
+              //  {field:"guest_id"},
+                {field:"log_id"},
+                {field:"shift_id"},
+                {field:"checkin_date"},
+                {field:"volunteer_names"},
+                {field:"date_of_shift"},
+            ]
+        };        
+        const grid = getElem('guest-grid');
         agGrid.createGrid(grid, gridOptions);
     }
     
