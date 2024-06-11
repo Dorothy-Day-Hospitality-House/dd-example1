@@ -156,6 +156,22 @@ class DDayHouseApp {
     
     async onBeds() {
         console.log('begin onBeds');
+
+        // get todays date ini YYYY-MM-DD
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+
+        // const formattedToday1 = yyyy + '-' + mm + '-' + dd;
+        const formattedToday2 = mm + '/' + dd + '/' + yyyy;
+        // console.log('Today date:  ',formattedToday1)
+        console.log('Today date:  ',formattedToday2)
+        // end of date
+
         let content = getElem('content');
         content.innerHTML = `Loading...`;
         let current_guest = await this.getTable('current_bed_to_guest');  
@@ -172,6 +188,22 @@ class DDayHouseApp {
             cg.lastname = guest.lastname;
             cg.firstname = guest.firstname;
             cg.bed_name = bed.bed_name;
+            cg.bed_short_name = bed.short_name;
+
+            let checkin = cg.checkin_date;
+            console.log('Checkin Date',checkin);
+            let checkin_form = new Date(checkin);
+            console.log('Checkin Date Form: ',checkin_form);
+
+            // calculate date difference
+            let date2 = new Date(formattedToday2);
+            let date1 = new Date(checkin);
+            //calculate time difference  
+            var time_difference = date2.getTime() - date1.getTime();  
+            //calculate days difference by dividing total milliseconds in a day  
+            var days_difference = time_difference / (1000 * 60 * 60 * 24);  
+
+            cg.days_left = 21 - parseInt(days_difference);
         }
 
         // sort by bed name
@@ -186,11 +218,13 @@ class DDayHouseApp {
         const gridOptions = {
             rowData: current_guest,
             columnDefs: [
-                {field:"lastname"},
-                {field:"firstname"},
-                {field:"checkin_date"},
-                {field:"type_of_stay"},
-                {field:"bed_name"},
+                { field:"lastname"},
+                { field:"firstname"},
+                { headerName: 'Checkin Date', field:"checkin_date"},
+                { headerName:  'Type of Stay', field:"type_of_stay"},
+                { headerName:  'Bed Name', field:"bed_name"},
+                { headerName:  'Short Name', field: 'bed_short_name'},
+                { headerName:  'Days Left', field:"days_left"},
             ]
         };        
         const grid = getElem('guest-grid');
