@@ -231,22 +231,44 @@ class DDayHouseApp {
         agGrid.createGrid(grid, gridOptions);
     }
     
+    // Volunteer Logs
     async onVolunteers() {
         console.log('begin onVolunteers');
         let content = getElem('content');
         content.innerHTML = `Loading...`;
-        let vol = await this.getTable('volunteer_log');  
+        let vol = await this.getTable('volunteer_log', { limit: 10000 });  
+        let shifts = await this.getTable('shifts');
+
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         
+        for (let vo of vol) {
+            //console.log('current_guest guest_id: ',cg.guest_id);
+            let sh = shifts.find(s => s.shift_id == vo.shift_id);
+            
+            vo.shift_desc = sh.shift_description;
+            vo.shift_sort = sh.shift_sort;
+            
+        }
+
+        // sort by date_of_shift, and then shift_sort
+
+        //
+
         const gridOptions = {
             rowData: vol,
             columnDefs: [
               //  {field:"guest_id"},
-                {field:"log_id"},
-                {field:"shift_id"},
-                {field:"checkin_date"},
+                // {field:"log_id"},
+                // {field:"shift_id"},
+                // {field:"checkin_date"},
                 {field:"volunteer_names"},
                 {field:"date_of_shift"},
+                { headerName: 'Shift Time', field: 'shift_desc'},
+                { headerName: 'Shift Sort', field: 'shift_sort'},
+                {field:"note"},
+                {field:"important_info"},
+                { headerName: 'Men Turned Away', field: 'men_turned_away' },
+                { headerName: 'Women Turned Away', field: 'women_turned_away' },
             ]
         };        
         const grid = getElem('guest-grid');
@@ -336,12 +358,7 @@ class DDayHouseApp {
 
 
     }
-
-    
 }
-
-
-
 
 function onPageLoad() {
 
