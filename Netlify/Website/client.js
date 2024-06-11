@@ -125,18 +125,18 @@ class DDayHouseApp {
             columnDefs: [
               //  {field:"guest_id"},
                 // {field: "button", cellRenderer: CustomButtonComponent },
-                {field: 'lastname', filter: true},
-                {field: 'firstname', filter:true},
+                {field: 'lastname', filter: true },
+                {field: 'firstname', filter:true },
                 {
                     name:"Thumbnail",
-                    field:"photo", 
+                    field:"photo", sortable: false,
                     cellRenderer: params => {
                         return `<img src="${this.api.base}/assets/${params.value}?key=system-small-cover">`
                     }
                 },
-                {field: 'identification', filter: true},
-                {field: 'date_of_birth', filter: true},
-                {field:"notes"},
+                {field: 'identification', filter: true },
+                {field: 'date_of_birth', filter: true },
+                {field: 'notes', filter: true },
                 {field:"state"},
               //  {field:"veteran"},
                 {field:"return_date"},
@@ -145,7 +145,7 @@ class DDayHouseApp {
                 {field:"contact_name"},
                 {field:"banned_detail"},
                 {field:"banned_until"},
-                {field:"banned"},
+                {field: 'banned', filter: true },
             ],
             rowSelection: "single",
         };        
