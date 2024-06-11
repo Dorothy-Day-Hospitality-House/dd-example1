@@ -119,6 +119,20 @@ class DDayHouseApp {
     
     async onBeds() {
         console.log('begin onBeds');
+        let content = getElem('content');
+        content.innerHTML = `Loading...`;
+        let current_guest = await this.getTable('current_bed_to_guest');        
+        content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+        const gridOptions = {
+            rowData: current_guest,
+            columnDefs: [
+              //  {field:"guest_id"},
+                {field:"guest_id"},
+                {field:"stay_id"},
+            ]
+        };        
+        const grid = getElem('guest-grid');
+        agGrid.createGrid(grid, gridOptions);
     }
     
     async onVolunteers() {
