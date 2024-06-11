@@ -1,3 +1,34 @@
+class CustomButtonComponent {
+    eGui;
+    eButton;
+    eventListener;
+   
+    init(params) {
+      this.eGui = document.createElement("div");
+      let button = document.createElement("button");
+      button.className = "btn-simple";
+      button.textContent = "Edit";
+      this.eventListener = () => alert("clicked");
+      button.addEventListener("click", this.eventListener);
+      this.eGui.appendChild(button);
+    }
+   
+    getGui() {
+      return this.eGui;
+    }
+   
+    refresh(params) {
+      return true;
+    }
+   
+    destroy() {
+      if (button) {
+        button.removeEventListener("click", this.eventListener);
+      }
+    }
+ }
+  
+
 
 class DDayHouseApp {
 
@@ -83,12 +114,17 @@ class DDayHouseApp {
     async onGuests() {
         let content = getElem('content');
         content.innerHTML = `Loading...`;
-        let guests = await this.getTable('guest_data', { limit: 10000 });        
+        let guests = await this.getTable('guest_data', { limit: 10000 });    
+        
+        // sort by last name
+        guests.sort((a,b) => (a.lastname > b.lastname) ? 1 : ((b.lastname > a.lastname) ? -1 : 0))
+
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         const gridOptions = {
             rowData: guests,
             columnDefs: [
               //  {field:"guest_id"},
+                {field: "button", cellRenderer: CustomButtonComponent },
                 {field:"lastname"},
                 {field:"firstname"},
                 {
@@ -137,7 +173,7 @@ class DDayHouseApp {
             cg.bed_name = bed.bed_name;
         }
 
-        // sort by lastname
+        // sort by bed name
         current_guest.sort((a,b) => (a.bed_name > b.bed_name) ? 1 : ((b.bed_name > a.bed_name) ? -1 : 0))
 
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
@@ -184,6 +220,43 @@ class DDayHouseApp {
     
     async onDailyNotes() {
         console.log('begin onDailyNotes');
+        let content = getElem('content');
+        content.innerHTML = `Loading...`;
+        let visit = await this.getTable('visitors');  
+        content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+        
+        let guests = await this.getTable('guest_data', { limit: 10000 }); 
+        let visit_time = await this.getTable('visiting_times');   
+        
+        for (let vi of visit) {
+            //console.log('current_guest guest_id: ',cg.guest_id);
+            let guest = guests.find(g => g.guest_id == vi.guest_id);
+            let vt = visit_time.find(v => v.visit_time_id == vi.visit_time_id)
+            
+            //console.log('guest lastname = ',guest.lastname);
+            //console.log('guest firstname = ',guest.firstname);
+            //console.log('guest matched to guest_id')
+            vi.lastname = guest.lastname;
+            vi.firstname = guest.firstname;
+            vi.visit_time_description = vt.visit_time_description;
+        }
+
+        // sort in descending order by date of visit
+        visit.sort((a,b) => (a.date_of_visit < b.date_of_visit) ? 1 : ((b.date_of_visit < a.date_of_visit) ? -1 : 0));
+
+        const gridOptions = {
+            rowData: visit,
+            columnDefs: [
+              //  {field:"guest_id"},
+                // {field:"visit_id"},
+                {field:"lastname"},
+                {field:"firstname"},
+                {field:"date_of_visit"},
+                {field:"visit_time_description"},
+            ]
+        };        
+        const grid = getElem('guest-grid');
+        agGrid.createGrid(grid, gridOptions);
     }
 
 
