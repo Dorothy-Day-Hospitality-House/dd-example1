@@ -283,8 +283,8 @@ class DDayHouseApp {
                 { headerName:  'Date', field: 'date_of_shift', filter: true, sortable:  false },
                 { headerName: 'Shift Time', field: 'shift_desc', sortable: false },
                 { headerName: 'Shift Sort', field: 'shift_sort', sortable: false },
-                { field: 'note', filter: true, sortable: false},
-                { field:"important_info", filter: true, sortable: false },
+                { headerName:  'Note', field: 'note', filter: true, sortable: false},
+                { headerName:  'Important Info', field: 'important_info', filter: true, sortable: false },
                 { headerName: 'Men Turned Away', field: 'men_turned_away', sortable: false },
                 { headerName: 'Women Turned Away', field: 'women_turned_away', sortable: false },
             ]
