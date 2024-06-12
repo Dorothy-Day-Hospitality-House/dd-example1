@@ -339,10 +339,10 @@ class DDayHouseApp {
             columnDefs: [
               //  {field:"guest_id"},
                 // {field:"visit_id"},
-                {field:"lastname"},
-                {field:"firstname"},
-                {field:"date_of_visit"},
-                {field:"visit_time_description"},
+                {headerName:  'Last Name', field: 'lastname' },
+                {headerName: 'First Name', field: 'firstname' },
+                {headerName: 'Date of Visit', field: 'date_of_visit' },
+                {headerName: 'Visit Time', field: 'visit_time_description' },
             ]
         };        
         const grid = getElem('guest-grid');
