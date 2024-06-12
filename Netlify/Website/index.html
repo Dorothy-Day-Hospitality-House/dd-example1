@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="utils.js"></script>
     <script src="api.js"></script>
-    <script src="render.js"></script>
+    <script src="message.js"></script>
     <script src="client.js"></script>
   </head>
   <body onload="onPageLoad()">
@@ -24,8 +24,9 @@
       <button onclick="app.onDailyNotes()">Visitors</button>
       <button onclick="app.onAdmin()"">Admin Functions</button>
     </div>
+    <div id="message-bar">Loading...</div>
 
-    <div id="content">loading...</div>
+    <div id="content"></div>
 
     <dialog id="login">
       <div onclick="app.onLogin(0)">X</div>

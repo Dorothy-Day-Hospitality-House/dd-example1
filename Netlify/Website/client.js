@@ -35,6 +35,7 @@ class DDayHouseApp {
     constructor() {
         this.api = new DirectusAPI();
         this.cache = {};
+        this.messageBar = new MessageBar(getElem('message-bar'));
     }
 
     // This gets all the rows of a table, with optional filter parameters.
@@ -366,6 +367,7 @@ class DDayHouseApp {
 
     async onAdmin() {
         console.log('begin Admin');
+        this.messageBar.show('This function doesn\'t work yet', 5, 2);
     }
 
     async onLogin(ok) {
@@ -400,6 +402,8 @@ class DDayHouseApp {
 function onPageLoad() {
 
     window.app = new DDayHouseApp();
+
+
 
 }
 

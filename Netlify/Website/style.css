@@ -62,6 +62,24 @@ input, select, textarea, button {
     padding: 1em;
 }
 
+.error {
+    background: #5a2c1d !important;
+}
+.warning {
+    background: #555412 !important;
+}
+
+#message-bar {
+    margin: .1em .72em;
+    background: #384026;
+    color:bisque;
+    font-size: 0.7em;
+    width: 100% - 1.5em;
+    height: 1.6em;
+    padding: 0 1em;
+    border: 1px solid #a6715f;
+}
+
 #content {
     margin: .1em .5em;
     padding: 1em;
