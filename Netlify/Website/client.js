@@ -293,11 +293,12 @@ class DDayHouseApp {
         agGrid.createGrid(grid, gridOptions);
     }
     
+    // Visitors
     async onDailyNotes() {
         console.log('begin onDailyNotes');
         let content = getElem('content');
         content.innerHTML = `Loading...`;
-        let visit = await this.getTable('visitors');  
+        let visit = await this.getTable('visitors', { limit: 10000 });  
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         
         let guests = await this.getTable('guest_data', { limit: 10000 }); 
@@ -317,7 +318,21 @@ class DDayHouseApp {
         }
 
         // sort in descending order by date of visit
-        visit.sort((a,b) => (a.date_of_visit < b.date_of_visit) ? 1 : ((b.date_of_visit < a.date_of_visit) ? -1 : 0));
+        // then sort by visiting time
+
+        visit.sort(function (a, b) {
+            let af = a.date_of_visit;
+            let bf = b.date_of_visit;
+            let as = a.visit_time_description;
+            let bs = b.visit_time_description;
+ 
+            // If first value is same
+            if (af == bf) {
+                return (as > bs) ? -1 : (as < bs) ? 1 : 0;
+            } else {
+                return (af > bf) ? -1 : 1;
+            }
+        });
 
         const gridOptions = {
             rowData: visit,
