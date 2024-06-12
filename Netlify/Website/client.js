@@ -364,6 +364,10 @@ class DDayHouseApp {
         setTimeout(() => getElem('password').focus(), 100);
     }
 
+    async onAdmin() {
+        console.log('begin Admin');
+    }
+
     async onLogin(ok) {
         let dialog = getElem('login');
         if (!ok) {
