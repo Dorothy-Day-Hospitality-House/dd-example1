@@ -91,7 +91,6 @@ input, select, textarea, button {
     color:bisque;
     font-size: 0.7em;
     width: 100% - 1.5em;
-    height: 1.6em;
     padding: 0 1em;
     border: 1px solid #a6715f;
 }
