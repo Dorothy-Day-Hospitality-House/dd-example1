@@ -57,6 +57,74 @@ class DDayHouseApp {
         return result.data;
     }
 
+    // renders HTML for a single volunteer log
+    renderVollog(vol, shifts) {
+        console.log('begin renderVollog');
+        if (vol) {
+            return `
+                <div class="vollog">
+                <table>
+                <tr>
+                <td>${vol.volunteer_names}</td>
+                </tr>
+                <tr>
+                <td>Date: ${vol.date_of_shift}</td>
+                </tr>
+                <tr>
+                <td>Note: ${vol.note}</td>
+                </tr>
+                <tr>
+                <td>Important Info: ${vol.important_info}</td>
+                </tr>
+                </table>
+                <br><br>
+                </div> `;
+        }
+    }
+
+    // Returns HTML for the volunteer log
+    renderVollogpage(vol, shifts) {
+        console.log('begin renderVollogpage');
+        let result = '<div class="vollog_outside">';
+                
+        // Apply array.sort with comparison function
+        vol.sort(function (a, b) {
+            let af = a.date_of_shift;
+            let bf = b.date_of_shift;
+            let as = a.shift_sort;
+            let bs = b.shift_sort;
+ 
+            // If first value is same
+            if (af == bf) {
+                return (as > bs) ? -1 : (as < bs) ? 1 : 0;
+            } else {
+                return (af > bf) ? -1 : 1;
+            }
+        });
+
+        console.log('begin assigning values in vol');
+        for (let vo of vol) {
+            //console.log('current_guest guest_id: ',cg.guest_id);
+            let sh = shifts.find(s => s.shift_id == vo.shift_id);
+            
+            vo.shift_desc = sh.shift_description;
+            vo.shift_sort = sh.shift_sort;
+            result += this.renderVollog(vo, shifts);
+            
+        }
+
+        return result + '</div>';
+    }   
+
+    async onVollog() {
+        console.log('begin onVollog');
+        let vol = await this.getTable('volunteer_log', { limit: 10000 });  
+        let shifts = await this.getTable('shifts');
+
+        let content = getElem('content');
+        content.innerHTML = this.renderVollogpage(vol, shifts);
+    }
+
     // Returns HTML for a single tile on the bed board
     renderBed(bed, guest) {
         if (guest) {
@@ -233,6 +301,7 @@ class DDayHouseApp {
     }
     
     // Volunteer Logs
+    /* 
     async onVolunteers() {
         console.log('begin onVolunteers');
         let content = getElem('content');
@@ -292,7 +361,8 @@ class DDayHouseApp {
         };        
         const grid = getElem('guest-grid');
         agGrid.createGrid(grid, gridOptions);
-    }
+    } */
+
     
     // Visitors
     async onDailyNotes() {
