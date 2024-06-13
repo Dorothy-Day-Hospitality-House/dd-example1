@@ -62,7 +62,7 @@ class DDayHouseApp {
         console.log('begin renderVollog');
         if (vol) {
             return `
-                <div class="vollog">
+                <div class="vollog_table">
                 <table>
                 <tr>
                 <td>${vol.volunteer_names}</td>
@@ -77,7 +77,6 @@ class DDayHouseApp {
                 <td>Important Info: ${vol.important_info}</td>
                 </tr>
                 </table>
-                <br><br>
                 </div> `;
         }
     }

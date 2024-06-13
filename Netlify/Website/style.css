@@ -152,6 +152,11 @@ dialog button {
     margin-bottom: .5em;
 }
 
+.vollog_table {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
 .stays {
     display: flex;
     flex-wrap: wrap;
