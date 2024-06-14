@@ -63,7 +63,7 @@ class DDayHouseApp {
         if (vol) {
             return `
                 <div class="vollog_table">
-                <table>
+                <table onclick="vollogTable()">
                 <tr>
                 <td><span class="note">Volunteers:</span>  ${vol.volunteer_names}</td>
                 <td><span class="note">Date:</span>  ${vol.date_of_shift}</td>
@@ -474,10 +474,9 @@ class DDayHouseApp {
 }
 
 function onPageLoad() {
-
     window.app = new DDayHouseApp();
-
-
-
 }
 
+function vollogTable() {
+    console.log('edit volunteer log table')
+}
