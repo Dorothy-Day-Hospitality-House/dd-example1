@@ -479,4 +479,7 @@ function onPageLoad() {
 
 function vollogTable() {
     console.log('edit volunteer log table')
+    let content = getElem('content');
+    content.innerHTML = "Volunteer Form";
 }
+    
