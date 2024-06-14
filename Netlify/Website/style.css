@@ -155,6 +155,25 @@ dialog button {
 .vollog_table {
     width: 100%;
     border-bottom: 1px solid #ddd;
+    border: 1px solid;
+}
+
+.vollog_table table:hover {
+    background-color: coral
+}
+
+.vollog_table th {
+    color: white;
+    border: 1px solid;
+}
+
+.vollog_table td {
+    border: 1px solid;
+}
+
+.vollog_table tbody tr:first-child td {
+    background-color: #33FFD4;
+    
 }
 
 .stays {
