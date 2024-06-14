@@ -63,18 +63,23 @@ class DDayHouseApp {
         if (vol) {
             return `
                 <div class="vollog_table">
-                <table>
+                <table onclick="vollogTable()">
                 <tr>
-                <td>${vol.volunteer_names}</td>
+                <td><span class="note">Volunteers:</span>  ${vol.volunteer_names}</td>
+                <td><span class="note">Date:</span>  ${vol.date_of_shift}</td>
+                <td><span class="note">Shift:</span>  ${vol.shift_desc}</td>
                 </tr>
                 <tr>
-                <td>Date: ${vol.date_of_shift}</td>
+                <td colspan="3"><span class="note">Note:</span>  ${vol.note}</td>
                 </tr>
                 <tr>
-                <td>Note: ${vol.note}</td>
+                <td colspan="3"><span class="note">Important Info:</span>  ${vol.important_info}</td>
                 </tr>
                 <tr>
-                <td>Important Info: ${vol.important_info}</td>
+                <td colspan="3"><span class="note">Men Turned Away:</span>  ${vol.men_turned_away}</td>
+                </tr>
+                <tr>
+                <td colspan="3"><span class="note">Women Turned Away:</span>  ${vol.women_turned_away}</td>
                 </tr>
                 </table>
                 </div> `;
@@ -469,10 +474,9 @@ class DDayHouseApp {
 }
 
 function onPageLoad() {
-
     window.app = new DDayHouseApp();
-
-
-
 }
 
+function vollogTable() {
+    console.log('edit volunteer log table')
+}
