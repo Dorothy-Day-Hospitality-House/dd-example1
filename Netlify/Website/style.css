@@ -177,6 +177,10 @@ dialog button {
     
 }
 
+.note {
+    color:cornflowerblue
+}
+
 .stays {
     display: flex;
     flex-wrap: wrap;

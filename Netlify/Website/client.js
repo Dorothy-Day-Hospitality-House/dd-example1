@@ -65,15 +65,15 @@ class DDayHouseApp {
                 <div class="vollog_table">
                 <table>
                 <tr>
-                <td>Volunteers: ${vol.volunteer_names}</td>
-                <td>Date: ${vol.date_of_shift}</td>
-                <td>Shift: ${vol.shift_desc}</td>
+                <td><span class="note">Volunteers:</span>  ${vol.volunteer_names}</td>
+                <td><span class="note">Date:</span>  ${vol.date_of_shift}</td>
+                <td><span class="note">Shift:</span>  ${vol.shift_desc}</td>
                 </tr>
                 <tr>
-                <td colspan="3">Note: ${vol.note}</td>
+                <td colspan="3"><span class="note">Note:</span>  ${vol.note}</td>
                 </tr>
                 <tr>
-                <td colspan="3">Important Info: ${vol.important_info}</td>
+                <td colspan="3"><span class="note">Important Info:</span>  ${vol.important_info}</td>
                 </tr>
                 </table>
                 </div> `;
