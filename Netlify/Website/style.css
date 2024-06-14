@@ -169,6 +169,7 @@ dialog button {
 
 .vollog_table td {
     border: 1px solid;
+    width:33%;
 }
 
 .vollog_table tbody tr:first-child td {
