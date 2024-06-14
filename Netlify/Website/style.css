@@ -102,6 +102,11 @@ input, select, textarea, button {
     background: #f2f4f333;
 }
 
+.vollogForm {
+    color:bisque;
+    background: #384026;
+}
+
 table {
     width: 99.9%;
     border-collapse: collapse;
