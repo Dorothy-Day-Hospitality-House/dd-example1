@@ -75,6 +75,12 @@ class DDayHouseApp {
                 <tr>
                 <td colspan="3"><span class="note">Important Info:</span>  ${vol.important_info}</td>
                 </tr>
+                <tr>
+                <td colspan="3"><span class="note">Men Turned Away:</span>  ${vol.men_turned_away}</td>
+                </tr>
+                <tr>
+                <td colspan="3"><span class="note">Women Turned Away:</span>  ${vol.women_turned_away}</td>
+                </tr>
                 </table>
                 </div> `;
         }
