@@ -36,6 +36,14 @@ class DDayHouseApp {
         this.api = new DirectusAPI();
         this.cache = {};
         this.messageBar = new MessageBar(getElem('message-bar'));
+        this.api.autoLogin().then(user => {
+            if (user) {
+                if (user.endsWith('@fingerson.com'))
+                    user = user.substring(0, user.length-14);
+                getElem('username').innerHTML = `Welcome ${user}`;
+                getElem('login-button').innerHTML = 'Logout';
+            }
+        });
     }
 
     // This gets all the rows of a table, with optional filter parameters.
@@ -426,10 +434,8 @@ class DDayHouseApp {
 
 
     showMessage(msg) {
-        getElem('content').innerHTML = `
-            <div class="large-message">
-            ${msg}
-            </div>`;
+        getElem('content').innerHTML = 
+        `<div class="large-message">${msg}</div>`;
     }
 
     showLogin() {
@@ -467,9 +473,13 @@ class DDayHouseApp {
 
     async onLogInOut(init=false) {
         console.log('begin onLogInOut');
-        this.showLogin();
-
-
+        if (this.api.auth) {
+            // Already logged in, so now log us out.
+            await this.api.logout();
+            getElem('username').innerHTML = '';
+            getElem('login-button').innerHTML = 'Login Required';
+        }
+        else this.showLogin();
     }
 }
 

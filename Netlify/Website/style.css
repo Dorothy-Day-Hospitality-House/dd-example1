@@ -43,6 +43,10 @@ input, select, textarea, button {
     text-align: center;
 }
 
+.top-banner span {
+    float: left;
+}
+
 .top-banner button {
     cursor: pointer;
     float: right;
@@ -136,6 +140,13 @@ dialog {
     border-radius: .5em;
     padding: 0 1em;
 }
+
+dialog::backdrop {
+    background: repeating-linear-gradient(45deg, 
+       black, black 10px,#222 12px, #222 14px);
+    opacity: 70%;
+}
+  
 dialog label {
     width: 5em;
     display: inline-block;    
