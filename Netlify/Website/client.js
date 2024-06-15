@@ -56,8 +56,9 @@ class DDayHouseApp {
         console.log('get table ', key);
         let res = await this.api.get('/items/' + table, params);
         let result = await res.json();
-        if (!'data' in result) {            // ERROR, the api failed
+        if (!('data' in result)) {            // ERROR, the api failed
             console.error(result);
+            this.messageBar.error(result.errors[0].message);
             throw Error(result.errors[0].message);
         }
         console.log('rows found = '+result.data.length);
@@ -433,11 +434,6 @@ class DDayHouseApp {
     }
 
 
-    showMessage(msg) {
-        getElem('content').innerHTML = 
-        `<div class="large-message">${msg}</div>`;
-    }
-
     showLogin() {
         getElem('login-ok').disabled = false;
         getElem('password').value = '';
@@ -461,9 +457,9 @@ class DDayHouseApp {
         if (email.indexOf('@') < 0) email += '@fingerson.com';
         let password = getElem('password').value;
         this.api.login({ email, password }).then(() => {
-            this.showMessage('Login successful.');
+            this.messageBar.show('Login successful.');
         }).catch(err => {
-            this.showMessage('Login failed, '+err);
+            this.messageBar.error('Login failed, '+err);
         }).finally(() => {
             dialog.close();
         });
@@ -478,6 +474,8 @@ class DDayHouseApp {
             await this.api.logout();
             getElem('username').innerHTML = '';
             getElem('login-button').innerHTML = 'Login Required';
+            getElem('content').innerHTML = '';
+            this.cache = {};
         }
         else this.showLogin();
     }

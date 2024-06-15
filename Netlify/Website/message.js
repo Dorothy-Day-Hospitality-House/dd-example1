@@ -18,6 +18,10 @@ class MessageBar {
         setTimeout(()=> this.clear(), duration*1000);
     }
 
+    error(message) {  this.show(message,severity=2);  }
+
+    warning(message) {  this.show(message,severity=1);  }
+
     clear() {
         this.elem.innerHTML = '';
         this.setColor(0);
