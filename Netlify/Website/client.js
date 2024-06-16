@@ -457,7 +457,7 @@ class DDayHouseApp {
         if (email.indexOf('@') < 0) email += '@fingerson.com';
         let password = getElem('password').value;
         this.api.login({ email, password }).then(() => {
-            this.messageBar.show('Login successful.');
+            this.messageBar.show('Login successful.',3);
         }).catch(err => {
             this.messageBar.error('Login failed, '+err);
         }).finally(() => {
@@ -476,6 +476,7 @@ class DDayHouseApp {
             getElem('login-button').innerHTML = 'Login Required';
             getElem('content').innerHTML = '';
             this.cache = {};
+            this.messageBar.show('You are now logged out.',3);
         }
         else this.showLogin();
     }
