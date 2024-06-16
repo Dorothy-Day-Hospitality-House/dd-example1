@@ -449,14 +449,11 @@ class DDayHouseApp {
         let email = getElem('email').value;
         if (email.indexOf('@') < 0) email += '@fingerson.com';
         let password = getElem('password').value;
-        try {
-            await this.api.login({ email, password });
+        if (this.api.login({ email, password })) {
             this.afterLogin(email);
             this.messageBar.show('Login successful.',3);
         }
-        catch (err) {
-            this.messageBar.error('Login failed, '+err);
-        }
+        else this.messageBar.error('Login failed.');
         dialog.close();
     }
 

@@ -19,7 +19,7 @@ class DirectusAPI {
         if (value) {
             let cred = JSON.parse(value);
             let res = await this.post('/auth/login', cred);
-            if (this.parseAuthResult(res)) {
+            if (await this.parseAuthResult(res)) {
                 return cred.email;
             }
         }
@@ -29,10 +29,10 @@ class DirectusAPI {
 
     // Login and keep the token in the auth.
     // cred must be { email: 'api2@fingerson.com', password: '????'}
-    // keep=true will save cred in local storage (which doesn't expire)
+    // Returns true or false.
     async login(cred, keep=true) {
         let res = await this.post('/auth/login', cred);
-        if (this.parseAuthResult(res)) {
+        if (await this.parseAuthResult(res)) {
             let value = JSON.stringify(cred);
             sessionStorage.setItem(this.storageKey, value);
             if (keep) 
@@ -40,7 +40,7 @@ class DirectusAPI {
         }
     }
 
-    // Private method, return true on success. Otherwise throw error
+    // Private method, return true on success.
     async parseAuthResult(res) {
         if (res.status == 200) {
             let body = await res.json();
@@ -51,7 +51,6 @@ class DirectusAPI {
                 return true;
             }
         }
-        throw Error('Login failed. see network log for more information.');
     }
 
     // Logout, invalidate the token, and clear all the local storage
