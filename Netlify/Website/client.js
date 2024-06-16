@@ -36,14 +36,7 @@ class DDayHouseApp {
         this.api = new DirectusAPI();
         this.cache = {};
         this.messageBar = new MessageBar(getElem('message-bar'));
-        this.api.autoLogin().then(user => {
-            if (user) {
-                if (user.endsWith('@fingerson.com'))
-                    user = user.substring(0, user.length-14);
-                getElem('username').innerHTML = `Welcome ${user}`;
-                getElem('login-button').innerHTML = 'Logout';
-            }
-        });
+        this.api.autoLogin().then(user => this.afterLogin(user));
     }
 
     // This gets all the rows of a table, with optional filter parameters.
@@ -456,15 +449,26 @@ class DDayHouseApp {
         let email = getElem('email').value;
         if (email.indexOf('@') < 0) email += '@fingerson.com';
         let password = getElem('password').value;
-        this.api.login({ email, password }).then(() => {
+        try {
+            await this.api.login({ email, password });
+            this.afterLogin(email);
             this.messageBar.show('Login successful.',3);
-        }).catch(err => {
+        }
+        catch (err) {
             this.messageBar.error('Login failed, '+err);
-        }).finally(() => {
-            dialog.close();
-        });
+        }
+        dialog.close();
     }
 
+
+    afterLogin(user) {
+        if (user) {
+            if (user.endsWith('@fingerson.com'))
+                user = user.substring(0, user.length-14);
+            getElem('username').innerHTML = `Welcome ${user}`;
+            getElem('login-button').innerHTML = 'Logout';
+        }
+    }
 
 
     async onLogInOut(init=false) {
