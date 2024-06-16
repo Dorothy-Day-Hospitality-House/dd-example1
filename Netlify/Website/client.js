@@ -44,6 +44,7 @@ class DDayHouseApp {
     async getTable(table, params=null) {
         let key = table + (params ? JSON.stringify(params) : '');
         if (key in this.cache) {
+            this.messageBar.show('');
             return this.cache[key];                  // Get the data from the cache
         }
         console.log('get table ', key);
@@ -54,6 +55,7 @@ class DDayHouseApp {
             this.messageBar.error(result.errors[0].message);
             throw Error(result.errors[0].message);
         }
+        this.messageBar.show('');
         console.log('rows found = '+result.data.length);
         this.cache[key] = result.data;    // Save results to the cache
         return result.data;
