@@ -45,6 +45,8 @@ input, select, textarea, button {
 
 .top-banner span {
     float: left;
+    font-variant: normal;
+    font-weight: 300;
 }
 
 .top-banner button {

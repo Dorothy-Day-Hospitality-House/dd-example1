@@ -188,7 +188,8 @@ class DDayHouseApp {
 
     async onGuests() {
         let content = getElem('content');
-        content.innerHTML = `Loading...`;
+        content.innerHTML = '';
+        this.messageBar.show('Loading...');
         let guests = await this.getTable('guest_data', { limit: 10000 });    
         
         // sort by last name
@@ -248,7 +249,8 @@ class DDayHouseApp {
         // end of date
 
         let content = getElem('content');
-        content.innerHTML = `Loading...`;
+        content.innerHTML = '';
+        this.messageBar.show('Loading...');
         let current_guest = await this.getTable('current_bed_to_guest');  
         let guests = await this.getTable('guest_data', { limit: 10000 }); 
         let beds = await this.getTable('beds');
@@ -311,7 +313,8 @@ class DDayHouseApp {
     async onVolunteers() {
         console.log('begin onVolunteers');
         let content = getElem('content');
-        content.innerHTML = `Loading...`;
+        content.innerHTML = '';
+        this.messageBar.show('Loading...');
         let vol = await this.getTable('volunteer_log', { limit: 10000 });  
         let shifts = await this.getTable('shifts');
 
@@ -374,7 +377,8 @@ class DDayHouseApp {
     async onDailyNotes() {
         console.log('begin onDailyNotes');
         let content = getElem('content');
-        content.innerHTML = `Loading...`;
+        content.innerHTML = '';
+        this.messageBar.show('Loading...');
         let visit = await this.getTable('visitors', { limit: 10000 });  
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         
@@ -462,7 +466,7 @@ class DDayHouseApp {
         if (user) {
             if (user.endsWith('@fingerson.com'))
                 user = user.substring(0, user.length-14);
-            getElem('username').innerHTML = `Welcome ${user}`;
+            getElem('username').innerHTML = user;
             getElem('login-button').innerHTML = 'Logout';
         }
     }
