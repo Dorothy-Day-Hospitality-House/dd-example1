@@ -37,6 +37,7 @@ class DirectusAPI {
             sessionStorage.setItem(this.storageKey, value);
             if (keep) 
                 localStorage.setItem(this.storageKey, value);
+            return true;
         }
     }
 
