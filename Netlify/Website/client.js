@@ -44,10 +44,11 @@ class DDayHouseApp {
     async getTable(table, params=null) {
         let key = table + (params ? JSON.stringify(params) : '');
         if (key in this.cache) {
-            this.messageBar.show('');
+            this.messageBar.clear();
             return this.cache[key];                  // Get the data from the cache
         }
         console.log('get table ', key);
+        this.messageBar.show('Loading ' + table + ' ...');
         let res = await this.api.get('/items/' + table, params);
         let result = await res.json();
         if (!('data' in result)) {            // ERROR, the api failed
@@ -55,7 +56,7 @@ class DDayHouseApp {
             this.messageBar.error(result.errors[0].message);
             throw Error(result.errors[0].message);
         }
-        this.messageBar.show('');
+        this.messageBar.clear();
         console.log('rows found = '+result.data.length);
         this.cache[key] = result.data;    // Save results to the cache
         return result.data;
@@ -191,7 +192,6 @@ class DDayHouseApp {
     async onGuests() {
         let content = getElem('content');
         content.innerHTML = '';
-        this.messageBar.show('Loading...');
         let guests = await this.getTable('guest_data', { limit: 10000 });    
         
         // sort by last name
@@ -252,7 +252,6 @@ class DDayHouseApp {
 
         let content = getElem('content');
         content.innerHTML = '';
-        this.messageBar.show('Loading...');
         let current_guest = await this.getTable('current_bed_to_guest');  
         let guests = await this.getTable('guest_data', { limit: 10000 }); 
         let beds = await this.getTable('beds');
@@ -316,7 +315,6 @@ class DDayHouseApp {
         console.log('begin onVolunteers');
         let content = getElem('content');
         content.innerHTML = '';
-        this.messageBar.show('Loading...');
         let vol = await this.getTable('volunteer_log', { limit: 10000 });  
         let shifts = await this.getTable('shifts');
 
@@ -380,7 +378,6 @@ class DDayHouseApp {
         console.log('begin onDailyNotes');
         let content = getElem('content');
         content.innerHTML = '';
-        this.messageBar.show('Loading...');
         let visit = await this.getTable('visitors', { limit: 10000 });  
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         
@@ -442,7 +439,7 @@ class DDayHouseApp {
 
     async onAdmin() {
         console.log('begin Admin');
-        this.messageBar.show('This function doesn\'t work yet', 5, 2);
+        this.messageBar.error('This function doesn\'t work yet');
     }
 
     async onLogin(ok) {
