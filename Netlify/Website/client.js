@@ -143,7 +143,6 @@ class DDayHouseApp {
                 <div class="bedname">${bed.short_name}</div>
                 ${guest.firstname}
                 <br>${guest.lastname}
-                <br>${shorten(guest.notes, 110)}
                 </div> `;
         }
         // Empty bed
