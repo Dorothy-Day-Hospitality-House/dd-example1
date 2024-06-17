@@ -78,9 +78,11 @@ class DirectusAPI {
                 });
                 await this.parseAuthResult(res);
             }
-            return 'Bearer ' + this.auth.access_token;
+            return {
+                'Authorization': 'Bearer ' + this.auth.access_token
+            };
         }
-        return 'Basic YW5vbjphbm9u';
+        return {};
     }
 
     // GET from api, example code
@@ -91,9 +93,7 @@ class DirectusAPI {
         if (params) {
             url += '?' + new URLSearchParams(params);
         }
-        let headers = { 
-            'Authorization': await this.bearerToken() 
-        };
+        let headers = await this.bearerToken();
         return fetch(this.base + url, { method: 'GET', headers });
     }
 
@@ -104,7 +104,7 @@ class DirectusAPI {
     async post(url, data) {
         let headers = {
             'Content-Type': 'application/json',
-            'Authorization': await this.bearerToken()
+            ...await this.bearerToken()
         };
         let body = JSON.stringify(data);
         return fetch(this.base + url, { method: 'POST', headers, body });
