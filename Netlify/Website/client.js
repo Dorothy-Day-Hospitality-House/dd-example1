@@ -205,7 +205,7 @@ class DDayHouseApp {
                 // {field: "button", cellRenderer: CustomButtonComponent },
                 { headerName:  'Last Name', field: 'lastname', filter: true },
                 { headerName:  'First Name', field: 'firstname', filter:true },
-                { headerName:  'Preferred Name", field: 'preferred_name', filter:false, sortable:false },
+                { headerName:  'Preferred Name', field: 'preferred_name', filter:false, sortable:false },
                 {
                     name:"Thumbnail",
                     field:"photo", sortable: false,
