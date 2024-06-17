@@ -200,6 +200,7 @@ class DDayHouseApp {
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         const gridOptions = {
             rowData: guests,
+            pagination: true,
             columnDefs: [
               //  {field:"guest_id"},
                 // {field: "button", cellRenderer: CustomButtonComponent },
