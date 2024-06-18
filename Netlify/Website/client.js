@@ -228,6 +228,22 @@ class DDayHouseApp {
         />
         <br />
 
+        <label for="guest_image">Image:</label>
+        <input
+          type="text"
+          id="guest_image"
+          name="guest_image"
+        />
+        <br />
+
+        <label for="guest_note">Note:</label>
+        <input
+          type="text"
+          id="guest_note"
+          name="guest_note"
+        />
+        <br />
+
         <label for="guest_gender">Gender:</label>
         <select id="guest_gender" name="guest_gender">
           <option value="default">&nbsp;</option>
