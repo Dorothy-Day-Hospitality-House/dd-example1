@@ -174,29 +174,35 @@ dialog button {
     width: 100%;
     border-bottom: 1px solid #ddd;
     border: 1px solid;
+    background-color:  #e9edc9;
 }
 
 .vollog_table table:hover {
-    background-color: #FBF2A3
+    background-color: #ccd5ae;
 }
 
 .vollog_table th {
-    color: white;
     border: 1px solid;
+    font-family: monospace;
+    background-color:  #e9edc9;
 }
 
 .vollog_table td {
     border: 1px solid;
     width:33%;
+    font-family: monospace;
 }
 
 .vollog_table tbody tr:first-child td {
-    background-color: #33FFD4;
+    background-color: #d4a373;
+    font-family: monospace;
     
 }
 
 .note {
-    color:cornflowerblue
+    color: #283618;
+    font-weight: bold;
+    font-family: monospace;
 }
 
 .stays {
