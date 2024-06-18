@@ -224,6 +224,18 @@ dialog button {
     font-weight: bolder;
 }
 
+.ag-theme-quartz {
+    --ag-foreground-color: #000000;
+    --ag-background-color: #ccd5ae;
+    --ag-header-foreground-color: #faedcd;
+    --ag-header-background-color: #d4a373;
+    --ag-odd-row-background-color: #e9edc9;
+    --ag-header-column-resize-handle-color: #000000;
+
+    --ag-font-size: 17px;
+    --ag-font-family: monospace;
+}
+
 /**************************
 ***   MEDIA QUERIES     ***
 ***************************/

@@ -423,8 +423,9 @@ class DDayHouseApp {
             }
         });
 
-        // create new array out of the visit table, only with dates equal to the max date
-        let newTable = new Array();
+        // create new array out of the visit table, only with dates equal to the max date, or today in the future
+        // array of objects
+        var newTable = new Array();
         for (let vi of visit) {
             if (vi.date_of_visit == vt_max) {
               newTable.push(vi);            
