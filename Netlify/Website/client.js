@@ -312,7 +312,12 @@ class DDayHouseApp {
             columnDefs: [
               //  {field:"guest_id"},
                 // {field: "button", cellRenderer: CustomButtonComponent },
-                { headerName:  'Last Name', field: 'lastname', filter: true },
+                { 
+                    headerName:  'Last Name', 
+                    field: 'lastname', 
+                    filter: true,
+                    checkboxSelection: true,
+                },
                 { headerName:  'First Name', field: 'firstname', filter:true },
                 { headerName:  'Preferred Name', field: 'preferred_name', filter:false, sortable:false },
                 {
