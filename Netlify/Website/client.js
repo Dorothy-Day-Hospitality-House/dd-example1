@@ -130,6 +130,10 @@ class DDayHouseApp {
         let vol = await this.getTable('volunteer_log', { limit: 10000 });  
         let shifts = await this.getTable('shifts');
 
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+
         let content = getElem('content');
         content.innerHTML = this.renderVollogpage(vol, shifts);
     }
@@ -184,6 +188,10 @@ class DDayHouseApp {
 
         let content = getElem('content');
         content.innerHTML = this.renderBedBoard(stays, beds, guests);
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
     }
 
 
@@ -195,7 +203,7 @@ class DDayHouseApp {
 
         return `
 
-        <form action="test.php">
+        <form method="POST" action="test.php">
         <label for="guest_lastname">Last Name:</label>
         <input
           type="text"
@@ -222,6 +230,7 @@ class DDayHouseApp {
 
         <label for="guest_gender">Gender:</label>
         <select id="guest_gender" name="guest_gender">
+          <option value="default">&nbsp;</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="nonbinary">Non Binary</option>
@@ -236,7 +245,7 @@ class DDayHouseApp {
         />
         <br />
 
-        <label for="guest_dob">Date of Birth:</label>
+        <label for="guest_dob">Date of Birth (YYYY-MM-DD):</label>
         <input
           type="text"
           id="guest_dob"
@@ -267,10 +276,10 @@ class DDayHouseApp {
           name="guest_contact_phone"
         />
         <br />
-
-
+        
+        <br />
+        <input type="submit" value="Submit">
         </form>
-
         `;
 
 
@@ -371,6 +380,10 @@ class DDayHouseApp {
     
     async onBeds() {
         console.log('begin onBeds');
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
 
         // get todays date ini YYYY-MM-DD
         const today = new Date();
@@ -516,6 +529,11 @@ class DDayHouseApp {
     // Visitors
     async onDailyNotes() {
         console.log('begin onDailyNotes');
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+
         let content = getElem('content');
         content.innerHTML = '';
         let visit = await this.getTable('visitors', { limit: 10000 });  
