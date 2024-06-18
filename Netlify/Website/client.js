@@ -195,6 +195,39 @@ class DDayHouseApp {
     }
 
 
+
+    // Returns HTML for guest add form
+    renderGuestEdit(guest) {
+        console.log('begin renderGuestEdit');
+        let result = '<div class="content">';
+
+        return `
+        <div class="formdiv">
+          <label for="guest_id">ID:</label>
+          <input type="text" id="guest_id" value="${guest.guest_id}" readonly>
+          <label for="guest_lastname">Last Name:</label>
+          <input type="text" id="guest_lastname" value="${guest.lastname}">
+        
+          <label for="guest_firstname">First Name:</label>
+          <input type="text" id="guest_firstname" value="${guest.firstname}">
+        
+          <label for="guest_dob">Date of Birth:</label>
+          <input type="text" id="guest_dob" placeholder="(required) Date of Birth YYYY-MM-DD ..">
+        
+          <label for="guest_state">State:</label>
+          <input type="text" id="guest_state" placeholder="State of ID..">
+        
+          <label for="guest_contact">Contact:</label>
+          <input type="text" id="guest_contact" placeholder="Contact for emergency..">
+        
+          <label for="guest_contact_phone">Contact Phone:</label>
+          <input type="text" id="guest_contact_phone" placeholder="Contact phone number XXX-XXX-XXXX ..">
+
+
+          <input type="button" value="Submit" onclick="app.onModifyGuest()">
+        </div>`;
+    }
+
     // Returns HTML for guest add form
     renderGuestAdd() {
         console.log('begin renderGuestAdd');
@@ -203,52 +236,48 @@ class DDayHouseApp {
 
         return `
         <div class="formdiv">
-        <form name=guestaddform" action="/test.php" onsubmit="return validateGuestAddForm()" method="post" id="guestaddform" >
           <label for="guest_lastname">Last Name:</label>
-          <input type="text" id="guest_lastname" name="guest_lastname" placeholder="(required) Last name..">
+          <input type="text" id="guest_lastname" placeholder="(required) Last name..">
         
           <label for="guest_firstname">First Name:</label>
-          <input type="text" id="guest_firstname" name="guest_firstname" placeholder="(required) First name..">
+          <input type="text" id="guest_firstname" placeholder="(required) First name..">
         
           <label for="guest_prefname">Preferred Name:</label>
-          <input type="text" id="guest_prefname" name="guest_prefname" placeholder="Preferred name..">
+          <input type="text" id="guest_prefname" placeholder="Preferred name..">
         
           <label for="guest_image">Image:</label>
-          <input type="text" id="guest_image" name="guest_image" placeholder="(required) Upload image here..">
+          <input type="text" id="guest_image" placeholder="(required) Upload image here..">
         
           <label for="guest_note">Note:</label>
-          <input type="text" id="guest_note" name="guest_note" placeholder="Any additional notes..">
+          <input type="text" id="guest_note" placeholder="Any additional notes..">
         
           <label for="guest_gender">Gender:</label>
-          <select id="guest_gender" name="guest_gender" placeholder="Select gender from list..">
+          <select id="guest_gender" placeholder="Select gender from list..">
             <option value="nonbinary">Non Binary</option>  
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select> 
         
           <label for="guest_id">Identification:</label>
-          <input type="text" id="guest_id" name="guest_id" placeholder="Drivers License or ID.. (blank if doesn't have one)">
+          <input type="text" id="guest_id" placeholder="Drivers License or ID.. (blank if doesn't have one)">
         
           <label for="guest_dob">Date of Birth:</label>
-          <input type="text" id="guest_dob" name="guest_dob" placeholder="(required) Date of Birth YYYY-MM-DD ..">
+          <input type="text" id="guest_dob" placeholder="(required) Date of Birth YYYY-MM-DD ..">
         
           <label for="guest_state">State:</label>
-          <input type="text" id="guest_state" name="guest_state" placeholder="State of ID..">
+          <input type="text" id="guest_state" placeholder="State of ID..">
         
           <label for="guest_contact">Contact:</label>
-          <input type="text" id="guest_contact" name="guest_contact" placeholder="Contact for emergency..">
+          <input type="text" id="guest_contact" placeholder="Contact for emergency..">
         
           <label for="guest_contact_phone">Contact Phone:</label>
-          <input type="text" id="guest_contact_phone" name="guest_contact_phone" placeholder="Contact phone number XXX-XXX-XXXX ..">
+          <input type="text" id="guest_contact_phone" placeholder="Contact phone number XXX-XXX-XXXX ..">
         
-          <input type="submit" value="Submit">
-        </form>
+          <input type="button" value="Submit" onclick="app.onAddGuest()">
+
         </div>
         `;
 
-
-
-        return result + '</div>';
     }   
 
     async onGuestNew() {
@@ -282,6 +311,7 @@ class DDayHouseApp {
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         
         const gridOptions = {
+            onRowDoubleClicked: params => this.onEditGuest(params),
             autoSizeStrategy: {
                 type: 'fitGridWidth',
                 columnLimits: [
@@ -331,7 +361,12 @@ class DDayHouseApp {
                 { headerName:  'Return Date', field: 'return_date', sortable:false },
                 { headerName:  'Identification', field: 'identification', filter:true },
                 { headerName:  'Date of Birth', field: 'date_of_birth', filter:true, sortable:false },
-                { headerName:  'Notes', field: 'notes', filter:true, sortable:false },
+                { 
+                    headerName:  'Notes', 
+                    field: 'notes', 
+                    filter:true, 
+                    sortable:false,
+                },
                 { headerName:  'State', field: 'state', sortable:false },
                 //  {field:"veteran"},
                 { headerName:  'Contact Phone', field: 'contact_phone_no', sortable:false },
@@ -346,6 +381,15 @@ class DDayHouseApp {
         agGrid.createGrid(grid, gridOptions);
            
     }
+
+
+
+    onEditGuest(params) {
+        console.log(params.data);
+
+        getElem('content').innerHTML = this.renderGuestEdit(params.data);
+    }
+
     
     async onBeds() {
         console.log('begin onBeds');
@@ -637,6 +681,73 @@ class DDayHouseApp {
         }
         else this.showLogin();
     }
+
+
+    async onModifyGuest() {
+
+        let errorMsg = validateGuestAddForm();
+    
+        if (errorMsg) {
+            this.messageBar.error(errorMsg);
+            return;
+        }
+    
+        let data = {
+            lastname: getElem("guest_lastname").value,
+            firstname: getElem("guest_firstname").value,
+        };
+    
+        let url = '/items/guest_data/' + data.id;
+    
+        let res = await this.api.patch(url, data);
+        console.log(res.status);
+        let body = await res.json();
+        console.log(body);
+        if (res.status < 400) {
+            this.messageBar.show('Successfully modified.');
+        }
+        else {
+            let m = body.errors[0].message;
+            this.messageBar.error('Failed: ' + m);
+        }
+    
+
+    }
+
+    async onAddGuest() {
+
+        let errorMsg = validateGuestAddForm();
+    
+        if (errorMsg) {
+            this.messageBar.error(errorMsg);
+            return;
+        }
+    
+        let url = '/items/guest_data';
+    
+        let data = {
+            lastname: getElem("guest_lastname").value,
+            firstname: getElem("guest_firstname").value,
+            date_of_birth: getElem("guest_dob").value,
+            contact_phone_no: getElem("guest_contact_phone").value
+        };
+    
+        let res = await this.api.post(url, data);
+        console.log(res.status);
+        let body = await res.json();
+        console.log(body);
+        if (res.status < 400) {
+            this.messageBar.show('Successfully added.');
+        }
+        else {
+            let m = body.errors[0].message;
+            this.messageBar.error('Failed: ' + m);
+        }
+    
+    }
+        
+    
+
 }
 
 function onPageLoad() {
@@ -650,49 +761,39 @@ function vollogTable() {
 }
 
 function validateGuestAddForm() {
-    let ln = document.forms["guestaddform"]["guest_lastname"].value;
-    let fn = document.forms["guestaddform"]["guest_firstname"].value;
-    let dob = document.forms["guestaddform"]["guest_dob"].value;
-    let c_ph = document.forms["guestaddform"]["guest_contact_phone"].value;
+    let ln = getElem("guest_lastname").value;
+    let fn = getElem("guest_firstname").value;
+    let dob = getElem("guest_dob").value;
+    let c_ph = getElem("guest_contact_phone").value;
 
     var reWhiteSpace = new RegExp("\\s+");
     var reDOB = new RegExp("\\d{4}-\\d{2}-\\d{2}");
     var rePhone = new RegExp("\\d{3}-\\d{3}-\\d{4}");
 
     if (ln == "") {
-        alert("Last Name must be filled out");
-        return false;
+        return "Last Name must be filled out";
     }
 
     if (fn == "") {
-        alert("First Name must be filled out");
-        return false;
+        return "First Name must be filled out";
     }
 
     if (reWhiteSpace.test(ln)) {
-        alert("Last Name has white space, not allowed");
-        return false;
+        return "Last Name has white space, not allowed";
     }
 
     if (reWhiteSpace.test(fn)) {
-        alert("First Name has white space, not allowed");
-        return false;
+        return "First Name has white space, not allowed";
     }
 
     if (!reDOB.test(dob)) {
-        alert("DOB isn't formatted YYYY-MM-DD, try again");
-        return false;
+        return "DOB isn't formatted YYYY-MM-DD, try again";
     }
 
     // test contact phone format if no empty
     if (c_ph != "") {
         if (!rePhone.test(c_ph)) {
-            alert("Contact phone isn't formatted XXX-XXX-XXXX, try again");
-            return false;
+            return "Contact phone isn't formatted XXX-XXX-XXXX, try again";
         }
     }
-
-
-
 }
-    

@@ -17,20 +17,26 @@ input, select, textarea, button {
     border-radius: 5px;
     background-color: #d4a373;
     padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#guestaddform  input[type=text], select {
-    width: 100%;
+.formdiv label {
+    width: 10em;
+}
+
+.formdiv  input[type=text], select {
     padding: 5px 5px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    flex-grow: 1;
+    width: calc(90% - 10em);
 }
 
-#guestaddform  input[type=submit] {
-    width: 100%;
+.formdiv input[type=submit] {
     background-color: #ccd5ae;
     color: #000000;
     padding: 14px 20px;
