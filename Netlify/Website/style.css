@@ -12,12 +12,14 @@ input, select, textarea, button {
 }
 
 .formdiv {
+    font-family:inherit;
+    font-size:inherit;
     border-radius: 5px;
     background-color: #d4a373;
     padding: 10px;
 }
 
-#guestaddform  input, select {
+#guestaddform  input[type=text], select {
     width: 100%;
     padding: 5px 5px;
     margin: 8px 0;
@@ -25,6 +27,17 @@ input, select, textarea, button {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+#guestaddform  input[type=submit] {
+    width: 100%;
+    background-color: #ccd5ae;
+    color: #000000;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 
