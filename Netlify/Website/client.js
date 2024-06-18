@@ -648,9 +648,11 @@ function validateGuestAddForm() {
     let ln = document.forms["guestaddform"]["guest_lastname"].value;
     let fn = document.forms["guestaddform"]["guest_firstname"].value;
     let dob = document.forms["guestaddform"]["guest_dob"].value;
+    let c_ph = document.forms["guestaddform"]["guest_contact_phone"].value;
 
     var reWhiteSpace = new RegExp("\\s+");
     var reDOB = new RegExp("\\d{4}-\\d{2}-\\d{2}");
+    var rePhone = new RegExp("\\d{3}-\\d{3}-\\d{4}");
 
     if (ln == "") {
         alert("Last Name must be filled out");
@@ -676,6 +678,16 @@ function validateGuestAddForm() {
         alert("DOB isn't formatted YYYY-MM-DD, try again");
         return false;
     }
+
+    // test contact phone format if no empty
+    if (c_ph != "") {
+        if (!rePhone.test(c_ph)) {
+            alert("Contact phone isn't formatted XXX-XXX-XXXX, try again");
+            return false;
+        }
+    }
+
+
 
 }
     
