@@ -202,100 +202,48 @@ class DDayHouseApp {
 
 
         return `
-
-        <form method="POST" action="test.php">
-        <label for="guest_lastname">Last Name:</label>
-        <input
-          type="text"
-          id="guest_lastname"
-          name="guest_lastname"
-        />
-        <br />
-
-        <label for="guest_firstname">First Name:</label>
-        <input
-          type="text"
-          id="guest_firstname"
-          name="guest_firstname"
-        />
-        <br />
-
-        <label for="guest_prefname">Preferred Name:</label>
-        <input
-          type="text"
-          id="guest_prefname"
-          name="guest_prefname"
-        />
-        <br />
-
-        <label for="guest_image">Image:</label>
-        <input
-          type="text"
-          id="guest_image"
-          name="guest_image"
-        />
-        <br />
-
-        <label for="guest_note">Note:</label>
-        <input
-          type="text"
-          id="guest_note"
-          name="guest_note"
-        />
-        <br />
-
-        <label for="guest_gender">Gender:</label>
-        <select id="guest_gender" name="guest_gender">
-          <option value="default">&nbsp;</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="nonbinary">Non Binary</option>
-        </select> 
-        <br />
-
-        <label for="guest_id">Identification:</label>
-        <input
-          type="text"
-          id="guest_id"
-          name="guest_id"
-        />
-        <br />
-
-        <label for="guest_dob">Date of Birth (YYYY-MM-DD):</label>
-        <input
-          type="text"
-          id="guest_dob"
-          name="guest_dob"
-        />
-        <br />
-
-        <label for="guest_state">State:</label>
-        <input
-          type="text"
-          id="guest_state"
-          name="guest_state"
-        />
-        <br />
-
-        <label for="guest_contact">Contact:</label>
-        <input
-          type="text"
-          id="guest_contact"
-          name="guest_contact"
-        />
-        <br />
-
-        <label for="guest_contact_phone">Contact Phone:</label>
-        <input
-          type="text"
-          id="guest_contact_phone"
-          name="guest_contact_phone"
-        />
-        <br />
+        <div class="formdiv">
+        <form method="POST" action="/test.php" id="guestaddform" >
+          <label for="guest_lastname">Last Name:</label>
+          <input type="text" id="guest_lastname" name="guest_lastname" placeholder="Last name..">
         
-        <br />
-        <input type="submit" value="Submit">
+          <label for="guest_firstname">First Name:</label>
+          <input type="text" id="guest_firstname" name="guest_firstname" placeholder="First name..">
+        
+          <label for="guest_prefname">Preferred Name:</label>
+          <input type="text" id="guest_prefname" name="guest_prefname" placeholder="Preferred name..">
+        
+          <label for="guest_image">Image:</label>
+          <input type="text" id="guest_image" name="guest_image" placeholder="Upload image here..">
+        
+          <label for="guest_note">Note:</label>
+          <input type="text" id="guest_note" name="guest_note" placeholder="Any additional notes..">
+        
+          <label for="guest_gender">Gender:</label>
+          <select id="guest_gender" name="guest_gender" placeholder="Select gender from list..">
+            <option value="nonbinary">Non Binary</option>  
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select> 
+        
+          <label for="guest_id">Identification:</label>
+          <input type="text" id="guest_id" name="guest_id" placeholder="Drivers License or ID..">
+        
+          <label for="guest_dob">Date of Birth:</label>
+          <input type="text" id="guest_dob" name="guest_dob" placeholder="Date of Birth YYYY-MM-DD ..">
+        
+          <label for="guest_state">State:</label>
+          <input type="text" id="guest_state" name="guest_state" placeholder="State of ID..">
+        
+          <label for="guest_contact">Contact:</label>
+          <input type="text" id="guest_contact" name="guest_contact" placeholder="Contact for emergency..">
+        
+          <label for="guest_contact_phone">Contact Phone:</label>
+          <input type="text" id="guest_contact_phone" name="guest_contact_phone" placeholder="Contact phone #..">
+        
+          <input type="submit" value="Submit">
         </form>
+        </div>
         `;
 
 

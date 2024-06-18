@@ -11,6 +11,23 @@ input, select, textarea, button {
     font-size:inherit;
 }
 
+.formdiv {
+    border-radius: 5px;
+    background-color: #d4a373;
+    padding: 10px;
+}
+
+#guestaddform  input, select {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
 .color1 { background-color: #23252e; color: #f2f4f3; }
 .color2 { background-color: #847996; color: #000000; }
 .color3 { background-color: #f2f4f3; color: #847996; }
