@@ -205,16 +205,16 @@ class DDayHouseApp {
         <div class="formdiv">
         <form name=guestaddform" action="/test.php" onsubmit="return validateGuestAddForm()" method="post" id="guestaddform" >
           <label for="guest_lastname">Last Name:</label>
-          <input type="text" id="guest_lastname" name="guest_lastname" placeholder="Last name..">
+          <input type="text" id="guest_lastname" name="guest_lastname" placeholder="(required) Last name..">
         
           <label for="guest_firstname">First Name:</label>
-          <input type="text" id="guest_firstname" name="guest_firstname" placeholder="First name..">
+          <input type="text" id="guest_firstname" name="guest_firstname" placeholder="(required) First name..">
         
           <label for="guest_prefname">Preferred Name:</label>
           <input type="text" id="guest_prefname" name="guest_prefname" placeholder="Preferred name..">
         
           <label for="guest_image">Image:</label>
-          <input type="text" id="guest_image" name="guest_image" placeholder="Upload image here..">
+          <input type="text" id="guest_image" name="guest_image" placeholder="(required) Upload image here..">
         
           <label for="guest_note">Note:</label>
           <input type="text" id="guest_note" name="guest_note" placeholder="Any additional notes..">
@@ -227,10 +227,10 @@ class DDayHouseApp {
           </select> 
         
           <label for="guest_id">Identification:</label>
-          <input type="text" id="guest_id" name="guest_id" placeholder="Drivers License or ID..">
+          <input type="text" id="guest_id" name="guest_id" placeholder="Drivers License or ID.. (blank if doesn't have one)">
         
           <label for="guest_dob">Date of Birth:</label>
-          <input type="text" id="guest_dob" name="guest_dob" placeholder="Date of Birth YYYY-MM-DD ..">
+          <input type="text" id="guest_dob" name="guest_dob" placeholder="(required) Date of Birth YYYY-MM-DD ..">
         
           <label for="guest_state">State:</label>
           <input type="text" id="guest_state" name="guest_state" placeholder="State of ID..">
