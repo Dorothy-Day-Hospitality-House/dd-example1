@@ -203,7 +203,7 @@ class DDayHouseApp {
 
         return `
         <div class="formdiv">
-        <form method="POST" action="/test.php" id="guestaddform" >
+        <form name=guestaddform" action="/test.php" onsubmit="return validateGuestAddForm()" method="post" id="guestaddform" >
           <label for="guest_lastname">Last Name:</label>
           <input type="text" id="guest_lastname" name="guest_lastname" placeholder="Last name..">
         
@@ -642,5 +642,40 @@ function vollogTable() {
     console.log('edit volunteer log table')
     let content = getElem('content');
     content.innerHTML = "Volunteer Form";
+}
+
+function validateGuestAddForm() {
+    let ln = document.forms["guestaddform"]["guest_lastname"].value;
+    let fn = document.forms["guestaddform"]["guest_firstname"].value;
+    let dob = document.forms["guestaddform"]["guest_dob"].value;
+
+    var reWhiteSpace = new RegExp("\\s+");
+    var reDOB = new RegExp("\\d{4}-\\d{2}-\\d{2}");
+
+    if (ln == "") {
+        alert("Last Name must be filled out");
+        return false;
+    }
+
+    if (fn == "") {
+        alert("First Name must be filled out");
+        return false;
+    }
+
+    if (reWhiteSpace.test(ln)) {
+        alert("Last Name has white space, not allowed");
+        return false;
+    }
+
+    if (reWhiteSpace.test(fn)) {
+        alert("First Name has white space, not allowed");
+        return false;
+    }
+
+    if (!reDOB.test(dob)) {
+        alert("DOB isn't formatted YYYY-MM-DD, try again");
+        return false;
+    }
+
 }
     
