@@ -187,16 +187,127 @@ class DDayHouseApp {
     }
 
 
+    // Returns HTML for guest add form
+    renderGuestAdd() {
+        console.log('begin renderGuestAdd');
+        let result = '<div class="content">';
+
+
+        return `
+
+        <form action="test.php">
+        <label for="guest_lastname">Last Name:</label>
+        <input
+          type="text"
+          id="guest_lastname"
+          name="guest_lastname"
+        />
+        <br />
+
+        <label for="guest_firstname">First Name:</label>
+        <input
+          type="text"
+          id="guest_firstname"
+          name="guest_firstname"
+        />
+        <br />
+
+        <label for="guest_prefname">Preferred Name:</label>
+        <input
+          type="text"
+          id="guest_prefname"
+          name="guest_prefname"
+        />
+        <br />
+
+        <label for="guest_gender">Gender:</label>
+        <select id="guest_gender" name="guest_gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="nonbinary">Non Binary</option>
+        </select> 
+        <br />
+
+        <label for="guest_id">Identification:</label>
+        <input
+          type="text"
+          id="guest_id"
+          name="guest_id"
+        />
+        <br />
+
+        <label for="guest_dob">Date of Birth:</label>
+        <input
+          type="text"
+          id="guest_dob"
+          name="guest_dob"
+        />
+        <br />
+
+        <label for="guest_state">State:</label>
+        <input
+          type="text"
+          id="guest_state"
+          name="guest_state"
+        />
+        <br />
+
+        <label for="guest_contact">Contact:</label>
+        <input
+          type="text"
+          id="guest_contact"
+          name="guest_contact"
+        />
+        <br />
+
+        <label for="guest_contact_phone">Contact Phone:</label>
+        <input
+          type="text"
+          id="guest_contact_phone"
+          name="guest_contact_phone"
+        />
+        <br />
+
+
+        </form>
+
+        `;
+
+
+
+        return result + '</div>';
+    }   
+
+    async onGuestNew() {
+        console.log('starting onGuestNew');
+
+        // middle content - call function to render
+        let content = getElem('content');
+        content.innerHTML = this.renderGuestAdd();
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+
+
+    }
+
 
     async onGuests() {
         let content = getElem('content');
         content.innerHTML = '';
+
+        let btmcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+        btmcontent.innerHTML = '<img src ="plus.jpg" alt="Plus" width="40" height="40" onclick="app.onGuestNew()"></img>';
+       
         let guests = await this.getTable('guest_data', { limit: 10000 });    
         
         // sort by last name
         guests.sort((a,b) => (a.lastname > b.lastname) ? 1 : ((b.lastname > a.lastname) ? -1 : 0))
 
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+        
         const gridOptions = {
             autoSizeStrategy: {
                 type: 'fitGridWidth',
@@ -232,7 +343,7 @@ class DDayHouseApp {
                 { headerName:  'First Name', field: 'firstname', filter:true },
                 { headerName:  'Preferred Name', field: 'preferred_name', filter:false, sortable:false },
                 {
-                    name:"Thumbnail",
+                    headerName:"Thumbnail",
                     field:"photo", sortable: false,
                     cellRenderer: params => {
                         return `<img src="${this.api.base}/assets/${params.value}?key=system-small-cover">`
