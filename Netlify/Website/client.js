@@ -385,10 +385,16 @@ class DDayHouseApp {
         let guests = await this.getTable('guest_data', { limit: 10000 }); 
         let visit_time = await this.getTable('visiting_times');   
         
+        let vt_max = '';
+
         for (let vi of visit) {
             //console.log('current_guest guest_id: ',cg.guest_id);
             let guest = guests.find(g => g.guest_id == vi.guest_id);
             let vt = visit_time.find(v => v.visit_time_id == vi.visit_time_id)
+
+            if (vi.date_of_visit > vt_max) {
+              vt_max = vi.date_of_visit; // find latest date
+            }
             
             //console.log('guest lastname = ',guest.lastname);
             //console.log('guest firstname = ',guest.firstname);
@@ -397,6 +403,8 @@ class DDayHouseApp {
             vi.firstname = guest.firstname;
             vi.visit_time_description = vt.visit_time_description;
         }
+
+        console.log('date max = ', vt_max);
 
         // sort in descending order by date of visit
         // then sort by visiting time
@@ -415,13 +423,27 @@ class DDayHouseApp {
             }
         });
 
+        // create new array out of the visit table, only with dates equal to the max date
+        let newTable = new Array();
+        for (let vi of visit) {
+            if (vi.date_of_visit == vt_max) {
+              newTable.push(vi);            
+            }
+        }
+
+        // const today = new Date();
+        // const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        // console.log('tomorrow = ', tomorrow);
+
         const gridOptions = {
-            rowData: visit,
+            rowData: newTable,
+            // rowData: visit,
             columnDefs: [
               //  {field:"guest_id"},
                 // {field:"visit_id"},
                 { headerName: 'Last Name', field: 'lastname', sortable: false },
                 { headerName: 'First Name', field: 'firstname', sortable: false },
+                // { headerName: 'Date of Visit', field: 'date_of_visit', sortable: false, filter: 'agDateColumnFilter', filterParams: filterParams },
                 { headerName: 'Date of Visit', field: 'date_of_visit', sortable: false },
                 { headerName: 'Visit Time', field: 'visit_time_description', sortable: false },
             ]
