@@ -198,6 +198,31 @@ class DDayHouseApp {
 
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
         const gridOptions = {
+            autoSizeStrategy: {
+                type: 'fitGridWidth',
+                columnLimits: [
+                    {
+                        colId: 'lastname',
+                        minWidth: 200
+                    },
+                    {
+                        colId: 'firstname',
+                        minWidth: 200
+                    },
+                    {
+                        colId: 'preferred_name',
+                        minWidth: 200
+                    },
+                    {
+                        colId: 'photo',
+                        minWidth: 30
+                    },
+                    {
+                        colId: 'identification',
+                        minWidth: 200
+                    }
+                ]
+            },
             rowData: guests,
             pagination: true,
             columnDefs: [
@@ -295,6 +320,9 @@ class DDayHouseApp {
         // }
 
         const gridOptions = {
+            autoSizeStrategy: {
+                type: 'fitGridWidth',
+            },
             rowData: current_guest,
             columnDefs: [
                 { field:"lastname"},
@@ -437,6 +465,9 @@ class DDayHouseApp {
         // console.log('tomorrow = ', tomorrow);
 
         const gridOptions = {
+            autoSizeStrategy: {
+                type: 'fitGridWidth',
+            },
             rowData: newTable,
             // rowData: visit,
             columnDefs: [
