@@ -239,7 +239,7 @@ class DDayHouseApp {
           <input type="text" id="guest_contact" name="guest_contact" placeholder="Contact for emergency..">
         
           <label for="guest_contact_phone">Contact Phone:</label>
-          <input type="text" id="guest_contact_phone" name="guest_contact_phone" placeholder="Contact phone #..">
+          <input type="text" id="guest_contact_phone" name="guest_contact_phone" placeholder="Contact phone number XXX-XXX-XXXX ..">
         
           <input type="submit" value="Submit">
         </form>
