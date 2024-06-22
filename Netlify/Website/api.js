@@ -64,12 +64,15 @@ class DirectusAPI {
         localStorage.removeItem(this.storageKey);
     }
 
-    // Returns a string 'Bearer xxxxxxxxxxx' using the current token
-    // If missing token, return null
-    // If expired token, try to renew it.
+    // Returns a object { Authorization: 'Bearer xxxxxxxxxxx'} using the current token
+    // If missing token, return {}. If expired token, try to renew it.
+    // NOTE: Directus does not say how long the "refresh" is good for, so I'm gonna
+    // assume it is only good for 6 hours
     async bearerToken() {
         if (this.auth && 'access_token' in this.auth) {
-            if (this.auth.expire_time - Date.now() < 5000) {
+            let timeLeft = (this.auth.expire_time - Date.now()) / 1000;
+            if (timeLeft < 5 && timeLeft > -6 * 3600) {
+                this.auth = {};
                 // if less than 5 seconds remain to expire, then refresh the authentication
                 console.log('attempting to refresh the authentication');
                 let res = await this.post('/auth/refresh', {
