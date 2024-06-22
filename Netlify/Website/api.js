@@ -114,4 +114,18 @@ class DirectusAPI {
     }
 
  
+    // UPDATE api, example code
+    //   let res = await api.patch('/hello', {name:'john'});
+    //   let body = await res.json();
+    //   console.log(res.status, body);
+    async patch(url, data) {
+        let headers = {
+            'Content-Type': 'application/json',
+            ...await this.bearerToken()
+        };
+        let body = JSON.stringify(data);
+        return fetch(this.base + url, { method: 'PATCH', headers, body });
+    }
+
+ 
 }

@@ -11,6 +11,42 @@ input, select, textarea, button {
     font-size:inherit;
 }
 
+.formdiv {
+    font-family:inherit;
+    font-size:inherit;
+    border-radius: 5px;
+    background-color: #d4a373;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.formdiv label {
+    width: 10em;
+}
+
+.formdiv  input[type=text], select {
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: calc(90% - 10em);
+}
+
+.formdiv input[type=submit] {
+    background-color: #ccd5ae;
+    color: #000000;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
 .color1 { background-color: #23252e; color: #f2f4f3; }
 .color2 { background-color: #847996; color: #000000; }
 .color3 { background-color: #f2f4f3; color: #847996; }
@@ -108,6 +144,13 @@ input, select, textarea, button {
     background: #f2f4f333;
 }
 
+#btmcontent {
+    margin: .1em .5em;
+    padding: 1em;
+    border: 1px solid #a6715f;
+    background: #f2f4f333;
+}
+
 .vollogForm {
     color:bisque;
     background: #384026;
@@ -174,29 +217,35 @@ dialog button {
     width: 100%;
     border-bottom: 1px solid #ddd;
     border: 1px solid;
+    background-color:  #e9edc9;
 }
 
 .vollog_table table:hover {
-    background-color: #FBF2A3
+    background-color: #ccd5ae;
 }
 
 .vollog_table th {
-    color: white;
     border: 1px solid;
+    font-family: monospace;
+    background-color:  #e9edc9;
 }
 
 .vollog_table td {
     border: 1px solid;
     width:33%;
+    font-family: monospace;
 }
 
 .vollog_table tbody tr:first-child td {
-    background-color: #33FFD4;
+    background-color: #d4a373;
+    font-family: monospace;
     
 }
 
 .note {
-    color:cornflowerblue
+    color: #283618;
+    font-weight: bold;
+    font-family: monospace;
 }
 
 .stays {
@@ -222,6 +271,18 @@ dialog button {
 .bedname {
     font-size: 2em;
     font-weight: bolder;
+}
+
+.ag-theme-quartz {
+    --ag-foreground-color: #000000;
+    --ag-background-color: #ccd5ae;
+    --ag-header-foreground-color: #faedcd;
+    --ag-header-background-color: #d4a373;
+    --ag-odd-row-background-color: #e9edc9;
+    --ag-header-column-resize-handle-color: #000000;
+
+    --ag-font-size: 17px;
+    --ag-font-family: monospace;
 }
 
 /**************************

@@ -130,6 +130,10 @@ class DDayHouseApp {
         let vol = await this.getTable('volunteer_log', { limit: 10000 });  
         let shifts = await this.getTable('shifts');
 
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+
         let content = getElem('content');
         content.innerHTML = this.renderVollogpage(vol, shifts);
     }
@@ -143,7 +147,6 @@ class DDayHouseApp {
                 <div class="bedname">${bed.short_name}</div>
                 ${guest.firstname}
                 <br>${guest.lastname}
-                <br>${shorten(guest.notes, 110)}
                 </div> `;
         }
         // Empty bed
@@ -185,43 +188,190 @@ class DDayHouseApp {
 
         let content = getElem('content');
         content.innerHTML = this.renderBedBoard(stays, beds, guests);
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
     }
 
+
+
+    // Returns HTML for guest add form
+    renderGuestEdit(guest) {
+        console.log('begin renderGuestEdit');
+        let result = '<div class="content">';
+
+        return `
+        <div class="formdiv">
+          <label for="guest_id">ID:</label>
+          <input type="text" id="guest_id" value="${guest.guest_id}" readonly>
+          <label for="guest_lastname">Last Name:</label>
+          <input type="text" id="guest_lastname" value="${guest.lastname}">
+        
+          <label for="guest_firstname">First Name:</label>
+          <input type="text" id="guest_firstname" value="${guest.firstname}">
+        
+          <label for="guest_dob">Date of Birth:</label>
+          <input type="text" id="guest_dob" placeholder="(required) Date of Birth YYYY-MM-DD ..">
+        
+          <label for="guest_state">State:</label>
+          <input type="text" id="guest_state" placeholder="State of ID..">
+        
+          <label for="guest_contact">Contact:</label>
+          <input type="text" id="guest_contact" placeholder="Contact for emergency..">
+        
+          <label for="guest_contact_phone">Contact Phone:</label>
+          <input type="text" id="guest_contact_phone" placeholder="Contact phone number XXX-XXX-XXXX ..">
+
+
+          <input type="button" value="Submit" onclick="app.onModifyGuest()">
+        </div>`;
+    }
+
+    // Returns HTML for guest add form
+    renderGuestAdd() {
+        console.log('begin renderGuestAdd');
+        let result = '<div class="content">';
+
+
+        return `
+        <div class="formdiv">
+          <label for="guest_lastname">Last Name:</label>
+          <input type="text" id="guest_lastname" placeholder="(required) Last name..">
+        
+          <label for="guest_firstname">First Name:</label>
+          <input type="text" id="guest_firstname" placeholder="(required) First name..">
+        
+          <label for="guest_prefname">Preferred Name:</label>
+          <input type="text" id="guest_prefname" placeholder="Preferred name..">
+        
+          <label for="guest_image">Image:</label>
+          <input type="text" id="guest_image" placeholder="(required) Upload image here..">
+        
+          <label for="guest_note">Note:</label>
+          <input type="text" id="guest_note" placeholder="Any additional notes..">
+        
+          <label for="guest_gender">Gender:</label>
+          <select id="guest_gender" placeholder="Select gender from list..">
+            <option value="nonbinary">Non Binary</option>  
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select> 
+        
+          <label for="guest_id">Identification:</label>
+          <input type="text" id="guest_id" placeholder="Drivers License or ID.. (blank if doesn't have one)">
+        
+          <label for="guest_dob">Date of Birth:</label>
+          <input type="text" id="guest_dob" placeholder="(required) Date of Birth YYYY-MM-DD ..">
+        
+          <label for="guest_state">State:</label>
+          <input type="text" id="guest_state" placeholder="State of ID..">
+        
+          <label for="guest_contact">Contact:</label>
+          <input type="text" id="guest_contact" placeholder="Contact for emergency..">
+        
+          <label for="guest_contact_phone">Contact Phone:</label>
+          <input type="text" id="guest_contact_phone" placeholder="Contact phone number XXX-XXX-XXXX ..">
+        
+          <input type="button" value="Submit" onclick="app.onAddGuest()">
+
+        </div>
+        `;
+
+    }   
+
+    async onGuestNew() {
+        console.log('starting onGuestNew');
+
+        // middle content - call function to render
+        let content = getElem('content');
+        content.innerHTML = this.renderGuestAdd();
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+
+
+    }
 
 
     async onGuests() {
         let content = getElem('content');
         content.innerHTML = '';
+
+        let btmcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+        btmcontent.innerHTML = '<img src ="plus.jpg" alt="Plus" width="40" height="40" onclick="app.onGuestNew()"></img>';
+       
         let guests = await this.getTable('guest_data', { limit: 10000 });    
         
         // sort by last name
         guests.sort((a,b) => (a.lastname > b.lastname) ? 1 : ((b.lastname > a.lastname) ? -1 : 0))
 
         content.innerHTML = `<div id="guest-grid" class="ag-theme-quartz" style="height: 80vh"></div>`;
+        
         const gridOptions = {
+            onRowDoubleClicked: params => this.onEditGuest(params),
+            autoSizeStrategy: {
+                type: 'fitGridWidth',
+                columnLimits: [
+                    {
+                        colId: 'lastname',
+                        minWidth: 200
+                    },
+                    {
+                        colId: 'firstname',
+                        minWidth: 200
+                    },
+                    {
+                        colId: 'preferred_name',
+                        minWidth: 200
+                    },
+                    {
+                        colId: 'photo',
+                        minWidth: 30
+                    },
+                    {
+                        colId: 'identification',
+                        minWidth: 200
+                    }
+                ]
+            },
             rowData: guests,
+            pagination: true,
             columnDefs: [
               //  {field:"guest_id"},
                 // {field: "button", cellRenderer: CustomButtonComponent },
-                { headerName:  'Last Name', field: 'lastname', filter: true },
+                { 
+                    headerName:  'Last Name', 
+                    field: 'lastname', 
+                    filter: true,
+                    checkboxSelection: true,
+                },
                 { headerName:  'First Name', field: 'firstname', filter:true },
+                { headerName:  'Preferred Name', field: 'preferred_name', filter:false, sortable:false },
                 {
-                    name:"Thumbnail",
+                    headerName:"Thumbnail",
                     field:"photo", sortable: false,
                     cellRenderer: params => {
                         return `<img src="${this.api.base}/assets/${params.value}?key=system-small-cover">`
                     }
                 },
                 { headerName:  'Banned', field: 'banned', filter: true },
-                { headerName:  'Return Date', field: 'return_date' },
-                { headerName:  'Identification', field: 'identification', filter: true },
-                { headerName:  'Date of Birth', field: 'date_of_birth', filter: true },
-                { headerName:  'Notes', field: 'notes', filter: true },
-                { headerName:  'State', field: 'state' },
+                { headerName:  'Return Date', field: 'return_date', sortable:false },
+                { headerName:  'Identification', field: 'identification', filter:true },
+                { headerName:  'Date of Birth', field: 'date_of_birth', filter:true, sortable:false },
+                { 
+                    headerName:  'Notes', 
+                    field: 'notes', 
+                    filter:true, 
+                    sortable:false,
+                },
+                { headerName:  'State', field: 'state', sortable:false },
                 //  {field:"veteran"},
-                { headerName:  'Contact Phone', field: 'contact_phone_no' },
-                { headerName:  'Gender', field: 'gender' },
-                { headerName:  'Contact', field: 'contact_name' },
+                { headerName:  'Contact Phone', field: 'contact_phone_no', sortable:false },
+                { headerName:  'Gender', field: 'gender', sortable:false },
+                { headerName:  'Contact', field: 'contact_name', sortable:false },
                 { headerName:  'Banned Detail', field: 'banned_detail' },
                 { headerName:  'Banned Until', field: 'banned_until' },
             ],
@@ -231,9 +381,22 @@ class DDayHouseApp {
         agGrid.createGrid(grid, gridOptions);
            
     }
+
+
+
+    onEditGuest(params) {
+        console.log(params.data);
+
+        getElem('content').innerHTML = this.renderGuestEdit(params.data);
+    }
+
     
     async onBeds() {
         console.log('begin onBeds');
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
 
         // get todays date ini YYYY-MM-DD
         const today = new Date();
@@ -294,6 +457,9 @@ class DDayHouseApp {
         // }
 
         const gridOptions = {
+            autoSizeStrategy: {
+                type: 'fitGridWidth',
+            },
             rowData: current_guest,
             columnDefs: [
                 { field:"lastname"},
@@ -376,6 +542,11 @@ class DDayHouseApp {
     // Visitors
     async onDailyNotes() {
         console.log('begin onDailyNotes');
+
+        // clear the bottom bar
+        let btmcontentcontent = getElem('btmcontent');
+        btmcontent.innerHTML = '';
+
         let content = getElem('content');
         content.innerHTML = '';
         let visit = await this.getTable('visitors', { limit: 10000 });  
@@ -384,10 +555,16 @@ class DDayHouseApp {
         let guests = await this.getTable('guest_data', { limit: 10000 }); 
         let visit_time = await this.getTable('visiting_times');   
         
+        let vt_max = '';
+
         for (let vi of visit) {
             //console.log('current_guest guest_id: ',cg.guest_id);
             let guest = guests.find(g => g.guest_id == vi.guest_id);
             let vt = visit_time.find(v => v.visit_time_id == vi.visit_time_id)
+
+            if (vi.date_of_visit > vt_max) {
+              vt_max = vi.date_of_visit; // find latest date
+            }
             
             //console.log('guest lastname = ',guest.lastname);
             //console.log('guest firstname = ',guest.firstname);
@@ -396,6 +573,8 @@ class DDayHouseApp {
             vi.firstname = guest.firstname;
             vi.visit_time_description = vt.visit_time_description;
         }
+
+        console.log('date max = ', vt_max);
 
         // sort in descending order by date of visit
         // then sort by visiting time
@@ -414,13 +593,31 @@ class DDayHouseApp {
             }
         });
 
+        // create new array out of the visit table, only with dates equal to the max date, or today in the future
+        // array of objects
+        var newTable = new Array();
+        for (let vi of visit) {
+            if (vi.date_of_visit == vt_max) {
+              newTable.push(vi);            
+            }
+        }
+
+        // const today = new Date();
+        // const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        // console.log('tomorrow = ', tomorrow);
+
         const gridOptions = {
-            rowData: visit,
+            autoSizeStrategy: {
+                type: 'fitGridWidth',
+            },
+            rowData: newTable,
+            // rowData: visit,
             columnDefs: [
               //  {field:"guest_id"},
                 // {field:"visit_id"},
                 { headerName: 'Last Name', field: 'lastname', sortable: false },
                 { headerName: 'First Name', field: 'firstname', sortable: false },
+                // { headerName: 'Date of Visit', field: 'date_of_visit', sortable: false, filter: 'agDateColumnFilter', filterParams: filterParams },
                 { headerName: 'Date of Visit', field: 'date_of_visit', sortable: false },
                 { headerName: 'Visit Time', field: 'visit_time_description', sortable: false },
             ]
@@ -484,6 +681,73 @@ class DDayHouseApp {
         }
         else this.showLogin();
     }
+
+
+    async onModifyGuest() {
+
+        let errorMsg = validateGuestAddForm();
+    
+        if (errorMsg) {
+            this.messageBar.error(errorMsg);
+            return;
+        }
+    
+        let data = {
+            lastname: getElem("guest_lastname").value,
+            firstname: getElem("guest_firstname").value,
+        };
+    
+        let url = '/items/guest_data/' + data.id;
+    
+        let res = await this.api.patch(url, data);
+        console.log(res.status);
+        let body = await res.json();
+        console.log(body);
+        if (res.status < 400) {
+            this.messageBar.show('Successfully modified.');
+        }
+        else {
+            let m = body.errors[0].message;
+            this.messageBar.error('Failed: ' + m);
+        }
+    
+
+    }
+
+    async onAddGuest() {
+
+        let errorMsg = validateGuestAddForm();
+    
+        if (errorMsg) {
+            this.messageBar.error(errorMsg);
+            return;
+        }
+    
+        let url = '/items/guest_data';
+    
+        let data = {
+            lastname: getElem("guest_lastname").value,
+            firstname: getElem("guest_firstname").value,
+            date_of_birth: getElem("guest_dob").value,
+            contact_phone_no: getElem("guest_contact_phone").value
+        };
+    
+        let res = await this.api.post(url, data);
+        console.log(res.status);
+        let body = await res.json();
+        console.log(body);
+        if (res.status < 400) {
+            this.messageBar.show('Successfully added.');
+        }
+        else {
+            let m = body.errors[0].message;
+            this.messageBar.error('Failed: ' + m);
+        }
+    
+    }
+        
+    
+
 }
 
 function onPageLoad() {
@@ -495,4 +759,41 @@ function vollogTable() {
     let content = getElem('content');
     content.innerHTML = "Volunteer Form";
 }
-    
+
+function validateGuestAddForm() {
+    let ln = getElem("guest_lastname").value;
+    let fn = getElem("guest_firstname").value;
+    let dob = getElem("guest_dob").value;
+    let c_ph = getElem("guest_contact_phone").value;
+
+    var reWhiteSpace = new RegExp("\\s+");
+    var reDOB = new RegExp("\\d{4}-\\d{2}-\\d{2}");
+    var rePhone = new RegExp("\\d{3}-\\d{3}-\\d{4}");
+
+    if (ln == "") {
+        return "Last Name must be filled out";
+    }
+
+    if (fn == "") {
+        return "First Name must be filled out";
+    }
+
+    if (reWhiteSpace.test(ln)) {
+        return "Last Name has white space, not allowed";
+    }
+
+    if (reWhiteSpace.test(fn)) {
+        return "First Name has white space, not allowed";
+    }
+
+    if (!reDOB.test(dob)) {
+        return "DOB isn't formatted YYYY-MM-DD, try again";
+    }
+
+    // test contact phone format if no empty
+    if (c_ph != "") {
+        if (!rePhone.test(c_ph)) {
+            return "Contact phone isn't formatted XXX-XXX-XXXX, try again";
+        }
+    }
+}
